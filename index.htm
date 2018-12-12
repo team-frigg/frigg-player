@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>Big Bang Bourse</title>
+    <title>FRIGG Player</title>
 
     <link rel="icon" type="image/png" href="medias/favicon.png" />
 
@@ -16,17 +16,9 @@
 
     <meta name="description" content="Une application web pour arpenter Marseille ! Embarquez avec l’archéonaute pour un voyage insolite au coeur de Marseille et découvrez l’histoire incroyable du quartier de la Bourse, de l’antiquité à nos jours." />
 
-    <link rel="stylesheet" type="text/css" href="frigg/frigg-base.css">
+    <link rel="stylesheet" type="text/css" href="http://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-base.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="diaporama/diaporama.css">
-
-    <!-- Google Analytics -->
-    <script>
-    window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
-    ga('create', 'UA-125435693-1', 'auto');
-    </script>
-    <script async src='https://www.google-analytics.com/analytics.js'></script>
-    <!-- End Google Analytics -->
 
     <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
@@ -341,260 +333,15 @@
     </div>
 
 
-<script type="text/javascript" src="frigg/frigg-sdk.js"></script>
+<script type="text/javascript" src="http://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-sdk.js"></script>
+
+<script type="text/javascript" src="diaporama-options.js" ></script>
+<script type="text/javascript" src="frigg-options.js" ></script>
+
 <script type="text/javascript">
 
-    var getDiaporamaOptions = function(containerElement) {
-        return {
-            'containerElement': containerElement,
-            'enableDrag': true,
-            'updateOnResize': true,
-            'mouseDragSpeedMultiplier': -1.1,
-            'touchDragSpeedMultiplier': -0.8,
-            'lastItemSnapRight': true,
-
-            'autoPlayIntervalMs': 0,
-
-            onChange: function(event) {
-                containerElement.querySelector(".legendContainer").innerHTML = event.selectedItem.getAttribute("alt");
-            },
-
-            onClick: function(event) {
-
-                if (! needDiaporama(containerElement)) {
-                    return;
-                }
-
-                var className1 = "fullscreen-diaporama";
-                var className2 = "fullview";
-
-                if (containerElement.classList.contains(className1)) {
-                    containerElement.classList.toggle(className2);
-                } else {
-                    containerElement.classList.add(className1);
-                }
-
-                event.diaporama.updateSizes();
-
-            },
-
-            forceItemWidthPercent: function(refSize){
-                return 100;
-            }
-        }
-    };
-
-    var makeDiaporamaNav = function(containerElement, d) {
-
-        if (! needDiaporama(containerElement)) {
-            containerElement.querySelector(".diaporama-previous").classList.add("empty");
-            containerElement.querySelector(".diaporama-next").classList.add("empty");
-
-            return;
-        }
-
-        containerElement.querySelector(".diaporama-previous").addEventListener("click", function(event){
-            d.movePrevious();
-        });
-
-        containerElement.querySelector(".diaporama-next").addEventListener("click", function(){
-            d.moveNext();
-        });
-
-        containerElement.querySelector(".diaporama-close").addEventListener("click", function(event){
-            containerElement.classList.remove("fullscreen-diaporama");
-        });
-
-    };
-
-    var needDiaporama = function(containerElement){
-        var items = containerElement.querySelectorAll(".diaporama .diapo-item");
-        return (items.length > 1);
-    }
-
-    var config = {
-        'onProjectLoaded' : function(project){
-            console.log("project : " + project.label);
-            ga('send', 'event', 'Project', 'load', project.label);
-        },
-
-        'onSceneLoaded' : function(scene, project){
-            ga('set', 'page', window.location.hash);
-            ga('send', 'pageview');
-            ga('send', 'event', 'Scene', 'load', project.label + "/" + scene.label, scene.id);
-
-        },
-
-        'onMediaPlayed' : function(scene, project){
-            ga('send', 'event', 'Scene', 'media_played', project.label + "/" + scene.label, scene.id);
-        },
-
-        'onVariableChanged' : function(project, scene, variableName, variableValue){
-            console.log("onVariableChanged : " + scene.label);
-            ga('send', 'event', 'Scene', 'variable_changed', project.label + "/" + scene.label + "/" + variableName , scene.id);
-        },
-
-
-
-
-        "onTemplateLoaded" : {
-
-            'livre': function(element, sceneData, frigg){
-                var d = new Diaporama(getDiaporamaOptions(element));
-                makeDiaporamaNav(element, d);
-            },
-
-            'chapitre': function(element, sceneData, frigg){
-                var d = new Diaporama(getDiaporamaOptions(element));
-                makeDiaporamaNav(element, d);
-            },
-
-            'page_medias': function(element, sceneData, frigg){
-                var d = new Diaporama(getDiaporamaOptions(element));
-                makeDiaporamaNav(element, d);
-            },
-
-
-
-            'page_video': function(element, sceneData, frigg){
-                console.log("page_video");
-                var frame = element.querySelector('.videoFrame');
-                var player = new Vimeo.Player(frame);
-
-                frigg.pausableElements.push(player);
-            },
-
-            'page_carte': function (element, sceneData, frigg) {
-                console.log("page_carte");
-                
-                var theMapId = "theMap";//"map" + Date.now();
-                element.querySelector('.mapContainer').setAttribute('id', theMapId);
-
-                mapboxgl.accessToken = 'pk.eyJ1IjoidGFiYXNjb3ZpZGVvIiwiYSI6ImNqaHVqd283bTBuYWYzcXFpdmdya3Y3eXAifQ.wDWy30KVv4--PEV0icwAAg';
-
-                var map = new mapboxgl.Map({
-                    container: theMapId,
-                    style: 'mapbox://styles/tabascovideo/cjikfqj3209iv2snz12qvnnx7',
-                });
-
-                var geoTracker = new mapboxgl.GeolocateControl({
-                    positionOptions: {
-                        enableHighAccuracy: true
-                    },
-                    trackUserLocation: true
-                })
-
-                map.addControl(geoTracker);
-                window.setTimeout(function(){
-                    if (! geoTracker._geolocateButton) return;
-                    geoTracker._geolocateButton.click();
-                }, 2000);
-                
-
-                //var mapElements = [];
-                var thresholdLevel = 16;
-                function getLevelName(level){
-                    if (!level) {
-                        return "primary";
-                    }
-
-                    if (level >= thresholdLevel) {
-                        return "primary";
-                    }
-
-                    return "secondary";
-                }
-
-                
-                var createMarker = function(map, frigg, connection){
-                    
-                    var destinationSceneId = connection.destination_scene_id;
-                    var destionationScene = frigg.project.scenes[destinationSceneId];
-
-                    //console.log(destionationScene.template_id);
-                    var toSceneTemplate = "to-" + frigg._cleanTemplateName(frigg.project.templates[destionationScene.template_id].label);
-
-
-                    var latitude = destionationScene.geo_latitude;
-                    var longitude = destionationScene.geo_longitude;
-                    var level = getLevelName(destionationScene.geo_level);
-
-                    var label = destionationScene.label;
-
-                    //by level : 
-                    //https://www.mapbox.com/mapbox.js/api/v3.1.1/l-layergroup/
-                    //on https://www.mapbox.com/mapbox-gl-js/api/#map.event:zoomend 
-
-                    if (!latitude || !longitude) {
-                        return;
-                    }
-
-                    var popupElt = document.createElement('div');
-                    popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+ level;
-                    popupElt.innerHTML = "<h3>" + label + '</h3>';
-
-                    var popupMarker = new mapboxgl.Marker({'element': popupElt, anchor: 'bottom'})
-                      .setOffset([0, -25])
-                      .setLngLat([longitude, latitude])
-                      .addTo(map);
-
-                    
-                    var markerElt = document.createElement('div');
-                    markerElt.className = toSceneTemplate + ' map-marker map-item map-level-'+ level;
-
-                    var marker = new mapboxgl.Marker(markerElt)
-                      .setLngLat([longitude, latitude])
-                      .addTo(map);
-
-                    var listener = function(){
-                        //alert("To : " + destinationSceneId);
-                        frigg.gotoScene(destinationSceneId);
-                    }
-
-                    markerElt.addEventListener('click', listener);
-                    popupElt.addEventListener('click', listener);
-                
-                }
-
-                
-
-                //poi & popup
-                for(var connectionIndex in sceneData['_anonymous_connection']){
-                    var connection = sceneData['_anonymous_connection'][connectionIndex];
-                    createMarker(map, frigg, connection);
-                    
-                }
-
-                map.on("zoomend", function(data){
-                    var zoom = Math.round(this.getZoom());
-
-                    var toHide = null;
-                    if (zoom <= thresholdLevel) {
-                        toHide = ".map-level-secondary";
-                    }
-
-                    console.log("Map zoom : " + zoom + " vs threshold : " + thresholdLevel);
-                    console.log(" items to hide : " + toHide);
-
-                    var container = this.getContainer();
-                    frigg.applyClassBySelector(container, ".map-item", "hidden", "remove");
-                    if (toHide) frigg.applyClassBySelector(container, toHide, "hidden", "add");
-
-                    console.log(data);
-                    console.log(this.getZoom());
-                });
-
-                map.resize();
-                
-            }
-        }
-    }
-
-    var frigg = new FRIGG.Client(config);
+    var frigg = new FRIGG.Client(friggConfig);
     frigg.run(3);
-
-    
-
 
 </script>
 
