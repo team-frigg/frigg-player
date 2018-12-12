@@ -8,13 +8,13 @@
 
     <link rel="icon" type="image/png" href="medias/favicon.png" />
 
-    <meta property="og:url"           content="https://www.bigbangbourse.com" />
+    <meta property="og:url"           content="https://player.systeme-frigg.org" />
     <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="Big Bang Bourse" />
-    <meta property="og:description"   content="Une application web pour arpenter Marseille ! Embarquez avec l’archéonaute pour un voyage insolite au coeur de Marseille et découvrez l’histoire incroyable du quartier de la Bourse, de l’antiquité à nos jours." />
-    <meta property="og:image"         content="https://www.bigbangbourse.com/medias/partage.jpg" />
+    <meta property="og:title"         content="FRIGG Player" />
+    <meta property="og:description"   content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
+    <meta property="og:image"         content="https://player.systeme-frigg.org/medias/partage.jpg" />
 
-    <meta name="description" content="Une application web pour arpenter Marseille ! Embarquez avec l’archéonaute pour un voyage insolite au coeur de Marseille et découvrez l’histoire incroyable du quartier de la Bourse, de l’antiquité à nos jours." />
+    <meta name="description" content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
 
     <link rel="stylesheet" type="text/css" href="http://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-base.css">
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -340,8 +340,28 @@
 
 <script type="text/javascript">
 
+    function readHashParams(){
+        var params = {};
+        var hashString = window.location.hash.slice(1);
+        var hashParamArray = hashString.split("&");
+
+        for (var i = 0; i < hashParamArray.length; i++) {
+            var param = hashParamArray[i].split("=");
+
+            params[ param[0] ] = param[1];
+        }
+
+        return params;
+    }
+
+    var params = readHashParams();
+    var projectId = params["project"] ? params["project"] : prompt("Identifiant du projet");
+
+    //if you deploy this for your specific project, you should hardcode your project id, instead of reading it from the URL.
+    //var projectId = 1234;
+
     var frigg = new FRIGG.Client(friggConfig);
-    frigg.run(3);
+    frigg.run(projectId);
 
 </script>
 
