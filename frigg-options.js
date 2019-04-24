@@ -1,8 +1,11 @@
 
 var friggConfig = {
     
+    //"projectUrlPrefix": "http://frigg.local/api/project/",
+    //"mediaFilePrefix": "http://frigg.local/storage/",
+
     /*
-    //if you have Google Analytics...
+    //if you have Google Analytics you can listen for interresting events ...
     'onProjectLoaded' : function(project){
         console.log("project : " + project.label);
         ga('send', 'event', 'Project', 'load', project.label);
@@ -26,42 +29,38 @@ var friggConfig = {
 
     "onTemplateLoaded" : {
 
-        'livre': function(element, sceneData, frigg){
+        'content': function(element, sceneData, frigg){
+            
             var d = new Diaporama(getDiaporamaOptions(element));
             makeDiaporamaNav(element, d);
         },
 
-        'chapitre': function(element, sceneData, frigg){
-            var d = new Diaporama(getDiaporamaOptions(element));
-            makeDiaporamaNav(element, d);
-        },
-
-        'page_medias': function(element, sceneData, frigg){
-            var d = new Diaporama(getDiaporamaOptions(element));
-            makeDiaporamaNav(element, d);
-        },
-
-
-
-        'page_video': function(element, sceneData, frigg){
+        'video': function(element, sceneData, frigg){
             var frame = element.querySelector('.videoFrame');
             var player = new Vimeo.Player(frame);
 
             frigg.pausableElements.push(player);
         },
 
-        'page_carte': function (element, sceneData, frigg) {
-            console.log("page_carte");
-            
+        'map': function (element, sceneData, frigg) {
+            if (! sceneData.map_token[0].content) {
+                console.error("You must set a map_token in your map template.")
+            }
+
             var theMapId = "theMap";//"map" + Date.now();
             element.querySelector('.mapContainer').setAttribute('id', theMapId);
 
-            mapboxgl.accessToken = 'pk.eyJ1IjoidGFiYXNjb3ZpZGVvIiwiYSI6ImNqaHVqd283bTBuYWYzcXFpdmdya3Y3eXAifQ.wDWy30KVv4--PEV0icwAAg';
+            mapboxgl.accessToken = sceneData.map_token[0].content;
 
-            var map = new mapboxgl.Map({
-                container: theMapId,
-                style: 'mapbox://styles/tabascovideo/cjikfqj3209iv2snz12qvnnx7',
-            });
+            var mapOption = {
+                container: theMapId
+            }
+
+            if (sceneData.map_style[0]) {
+                mapOption.style = sceneData.map_style[0].content
+            }
+
+            var map = new mapboxgl.Map(mapOption);
 
             var geoTracker = new mapboxgl.GeolocateControl({
                 positionOptions: {
@@ -133,7 +132,6 @@ var friggConfig = {
                   .addTo(map);
 
                 var listener = function(){
-                    //alert("To : " + destinationSceneId);
                     frigg.gotoScene(destinationSceneId);
                 }
 
@@ -159,15 +157,13 @@ var friggConfig = {
                     toHide = ".map-level-secondary";
                 }
 
-                console.log("Map zoom : " + zoom + " vs threshold : " + thresholdLevel);
-                console.log(" items to hide : " + toHide);
+                //console.log("Map zoom : " + zoom + " vs threshold : " + thresholdLevel);
+                //console.log(" items to hide : " + toHide);
 
                 var container = this.getContainer();
                 frigg.applyClassBySelector(container, ".map-item", "hidden", "remove");
                 if (toHide) frigg.applyClassBySelector(container, toHide, "hidden", "add");
 
-                console.log(data);
-                console.log(this.getZoom());
             });
 
             map.resize();

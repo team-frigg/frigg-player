@@ -16,11 +16,10 @@
 
     <meta name="description" content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
 
-    <link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-base.css">
+    <link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css">
+    <!-- link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-base.css" -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="diaporama/diaporama.css">
-
-    <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700" rel="stylesheet">
 
     <script src='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.js'></script>
     <link href='https://api.tiles.mapbox.com/mapbox-gl-js/v0.47.0/mapbox-gl.css' rel='stylesheet' />
@@ -36,68 +35,63 @@
         <p class="pleaseWait">Chargement en cours, veuillez patienter...</p>
     </div>
 
-    <div id="friggDebugger" class="hidden">
+    <div id="friggDebugger">
     </div>
 
     <div id="friggTemplates">
-        
-        <section id="tpl_simple" class="scene">
-            <h2 frigg-slot-html="title"></h2>
-            <p frigg-slot-html="content"></p>
-            <p><img draggable="false" height="50px" frigg-slot-srcAlt="photo"  alt="Frigg"></p>
-            
-            <audio frigg-slot-srcAlt="sound">
 
-            <p frigg-slot-link="next">suivant</p>
-        </section>
+        <!-- Here we define all availables templates. These elements will be cloned as needed by the SDK, based on the template's name and the element id here. -->
 
-        <section id="tpl_accueil" class="scene tpl_accueil">
-            <div frigg-slot-bg="background"  class="container">
-                <img draggable="false" class="front" frigg-slot-srcAlt="front"  frigg-slot-link="_anonymous_connection" />
+        <!-- TEMPLATE : SPLASH-->
+        <section id="tpl_splash" class="scene tpl_splash" frigg-slot-class="custom_data">
+            <div frigg-slot-bg="background" class="container" >
 
-                <ul>
-                    <li frigg-slot-html="title"  ></li>
-                    <li frigg-slot-html="baseline"  ></li>
-                    <li frigg-slot-html="button_next"  ></li>
-                </ul>
-            </div>
+                <div class="audio_block">
+                    <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                    <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
+                    <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control"/>
+                </div>
 
-            
-        </section>
-
-        <section id="tpl_intersticiel" class="scene">
-            <div frigg-slot-bg="background" class="container carded">
-                
-                <div class="card">
-                    <div>
-                        <audio frigg-slot-srcAlt="main_audio" class="audioPlayer"> </audio>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon_pause" frigg-media-control frigg-event-media-started class="audio_control"/>
-                    </div>
-
-                    
-
-                    <div class="content">
-                        <h2 frigg-slot-html="title" class="title"></h2>
-                        <div frigg-slot-html="main_text" class="main_text"></div>
-                    </div>
-
-                    <p frigg-slot-link="_anonymous_connection" class="next">
-                        <img draggable="false" class="image" frigg-slot-srcAlt="button_next_image"  />
-                        <span class="string" frigg-slot-html="button_next_string"></span>
-                    </p>
+                <div class="contentBlock" >
+                    <img draggable="false" class="front" frigg-slot-srcAlt="front" frigg-slot-link="next" />
+                    <p frigg-slot-html="content" frigg-slot-link="next" ></p>
                 </div>
 
             </div>
 
             
+        </section>
+
+
+        <!-- TEMPLATE : Choices-->
+        <section id="tpl_choices" class="scene" frigg-slot-class="custom_data">
+            <div frigg-slot-bg="background" class="container carded">
+                
+                <div class="card">
+                    <div class="audio_block">
+                        <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
+                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control"/>
+                    </div>
+
+                    <div class="content">
+                        <div frigg-slot-html="content" class="main_text"></div>
+
+                        <ul class="items">
+                            <li frigg-slot-bg="items_image" frigg-slot-link="items_link" frigg-slot-html="items_text" class="item"></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
 
         </section>
 
 
 
 
-        <section id="tpl_livre" class="scene contentPage">
+        <section id="tpl_content" class="scene contentPage" frigg-slot-class="custom_data">
 
             <div frigg-slot-bg="background" class="container">
             
@@ -152,52 +146,11 @@
 
 
 
-        <section id="tpl_chapitre" class="scene contentPage">
-
-            <header class="diapo-viewport">
-                <div class="diaporama diapo-ribbon">
-                    <img draggable="false" frigg-slot-srcAlt="header" class="diapo-item"/>
-                </div>
-
-                <p class="navButtons">
-                    <img draggable="false" frigg-slot-srcAlt="diapo_close_icon" class="diaporama-close"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_previous_icon" class="diaporama-previous"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_next_icon" class="diaporama-next" />
-                </p>
-
-                <p class="legendContainer"></p>
-                <p class="backButton"><img draggable="false" frigg-slot-srcAlt="back_icon" frigg-slot-link="back_link" /></p>
-            </header>
-
-            <section NOPE-frigg-slot-bg="background" class="mainContent">
-
-                <div class="body">
-                    <h2 frigg-slot-html="title"></h2>
-                    <div frigg-slot-html="main_text"></div>
-                </div>
-
-                <div>   
-                    <audio frigg-slot-srcAlt="main_audio"></audio>
-                    <img draggable="false" frigg-slot-srcAlt="audio_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                    <img draggable="false" frigg-slot-srcAlt="audio_icon_pause" frigg-media-control frigg-event-media-started class="audio_control"/>
-                </div>
-            </section>
-
-            <footer>
-                <div class="body items bottom-menu">
-                    <img draggable="false" frigg-slot-srcAlt="bottom_icons" frigg-slot-link="bottom_links" class="item" />
-                </div>
-            </footer>
-
-
-        </section>
 
 
 
 
-
-
-        <section id="tpl_page_medias" class="scene contentPage">
+        <section id="tpl_page_medias" class="scene contentPage" frigg-slot-class="custom_data">
             <header class="diapo-viewport">
                 <div class="diaporama diapo-ribbon">
                     <img draggable="false" frigg-slot-srcAlt="header" class="diapo-item" />
@@ -231,7 +184,7 @@
 
         </section>
 
-        <section id="tpl_page_video" class="scene">
+        <section id="tpl_video" class="scene" frigg-slot-class="custom_data">
 
             <iframe frigg-slot-srcAlt="main_video" width="100%" height="100%" class="videoFrame" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; encrypted-media"></iframe>
 
@@ -239,48 +192,16 @@
 
         </section>
 
-        <section id="tpl_page_diaporama" class="scene">
-            <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
 
-            <li frigg-slot-html="images"  ></li>
-
-        </section>
+        
 
 
 
 
-        <section id="tpl_page_quiz" class="scene">
-            <div frigg-slot-bg="background" class="container carded">
-                
-                <div class="card">
-                    <div>
-                        <audio frigg-slot-srcAlt="main_audio"></audio>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon_pause" frigg-media-control frigg-event-media-started class="audio_control"/>
-                    </div>
+        <section id="tpl_map" class="scene" frigg-slot-class="custom_data">
 
-                    <div class="content">
-                        <div frigg-slot-html="question" class="main_text"></div>
-
-                        <ul class="items">
-                            <li frigg-slot-link="items_target" frigg-slot-html="items"></li>
-                        </ul>
-                    </div>
-
-
-                </div>
-
-            </div>
-
-        </section>
-
-
-
-
-        <section id="tpl_page_carte" class="scene">
-
-            <div class="container" style="">
-                <div class='mapContainer'></div>
+            <div class="container">
+                <div class='mapContainer'></div> <!-- the map is actually loaded by the listener -->
                 <p class="menuButton"><img draggable="false" frigg-slot-srcAlt="menu_icon" frigg-slot-link="menu_link" /></p>
 
                 <footer>
@@ -294,7 +215,10 @@
             
         </section>
 
-        <section id="tpl_menu" class="scene">
+
+
+
+        <section id="tpl_menu" class="scene" frigg-slot-class="custom_data">
             <div class="container">
                 <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
 
@@ -311,7 +235,7 @@
             
         </section>
 
-        <section id="tpl_page_informations" class="scene contentPage">
+        <section id="tpl_page_informations" class="scene contentPage" frigg-slot-class="custom_data">
             <div class="container">
 
                 <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
@@ -333,7 +257,8 @@
     </div>
 
 
-<script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-sdk.js"></script>
+<!--script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-sdk.js"></script-->
+<script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script>
 
 <script type="text/javascript" src="diaporama-options.js" ></script>
 <script type="text/javascript" src="frigg-options.js" ></script>
