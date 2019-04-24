@@ -81,7 +81,7 @@ body {
 /* COMMON COMPONENTS */
 /*********************/
 
-/* CONTAINER */
+/* CONTAINER & CARD */
 
 .container {
     width: 100%;
@@ -109,6 +109,9 @@ body {
 
     max-width: 600px;
     margin: auto;
+
+    text-align: center;
+    position: relative;
 }
 
 .container .card .content {
@@ -119,21 +122,7 @@ body {
 
 }
 
-.card {
-    text-align: center;
-    position: relative;
-}
 
-.card .content .title {
-    margin-top: 1em;
-    margin-bottom: 1em;
-    font-weight: bold;
-}
-
-.card .content .main_text {
-    margin-top: 1em;
-    margin-bottom: 1em;
-}
 
 
 
@@ -150,6 +139,30 @@ body {
 .audio_block .audio_control.disabled {
     display: none;
 }
+
+
+
+/* nav buttons */
+
+.nav {
+    position: absolute;
+    top: 0rem;
+    left: 0rem;
+
+    height: 3rem;
+    width: 3rem;
+}
+
+.nav img {
+    width: 100%;
+}
+
+
+.nav.secondaryNav {
+    right: 0rem;
+    left: auto;
+}
+
 
 
 
@@ -182,6 +195,12 @@ body {
 
 /* choices template */
 
+
+.tpl_choices .main_text {
+    margin-top: 1em;
+    margin-bottom: 1em;
+}
+
 .tpl_choices .items {
     padding-top: 0em;
 
@@ -213,83 +232,14 @@ body {
 }
 
 
+/* content template */
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/* TEMPLATES */ 
-
-
-/* tpl_accueil */ 
-
-.tpl_accueil .front {
-    display: block;
-    margin: auto;
-    height: 100%;
-    
-    z-index: 1;
-}
-
-/* tpl_intersticiel */
-
-.tpl_intersticiel .next {
-    text-align: center;
-    margin: 1em;
-}
-
-.tpl_intersticiel .next .image {
-    width: 60px;
-}
-
-.tpl_intersticiel .next .string {
-    background-color: rgb(53, 32, 97);
-    color: white;
-
-    padding: 0.5em;
-    margin-top: 2em;
-    display: block;
-}
-
-.tpl_intersticiel .card {
-    font-style: italic;
-}
-
-
-
-
-
-
-
-/* tpl_livre + tpl_chapitre */
-
-/* contentPage : */
-
-.contentPage .container {
+.tpl_content .container {
     width: 100%;
     height: 100%;
 }
 
-.contentPage header {
+.tpl_content header {
     position: absolute;
     top: 0;
     left: 0;
@@ -298,21 +248,20 @@ body {
 
     border-bottom: .5em solid white;
 
-
     background-image: url('medias/wait.gif');
     background-size: 1em;
     background-position: 50% 50%;
     background-repeat: no-repeat;
 }
 
-.contentPage.fullscreen-diaporama header{
+.tpl_content.fullscreen-diaporama header{
     height: 100%;
     width: 100%;
     border: 0;
     z-index: 100;
 }
 
-.contentPage .mainContent {
+.tpl_content .mainContent {
     position: absolute;
     top: 30%;
     left: 0;
@@ -323,7 +272,7 @@ body {
 
 }
 
-.contentPage footer {
+.tpl_content footer {
     position: absolute;
     bottom: 0;
     left: 0;
@@ -335,29 +284,29 @@ body {
 }
 
 
-.contentPage .audio_control {
+.tpl_content .audio_control {
     top:1em;
     right: 1em;
 }
 
 
-.contentPage header .diaporama {
+.tpl_content header .diaporama {
     height: 100%;
 }
 
-.contentPage header .diaporama img {
+.tpl_content header .diaporama img {
     object-fit: cover;
     display: block;
     height: 100%;
     background: black;
 }
 
-.contentPage.fullscreen-diaporama.fullview header .diaporama img {
+.tpl_content.fullscreen-diaporama.fullview header .diaporama img {
     object-fit: contain;
 
 }
 
-.contentPage header .navButtons img {
+.tpl_content header .navButtons img {
     position: absolute;
     top: calc(50% - 1.5em);
     height: 3em;
@@ -365,33 +314,37 @@ body {
     left: 0;
 }
 
-.contentPage.fullscreen-diaporama header .navButtons .diaporama-next,
-.contentPage.fullscreen-diaporama header .navButtons .diaporama-previous {
+.tpl_content.fullscreen-diaporama header .navButtons .diaporama-next,
+.tpl_content.fullscreen-diaporama header .navButtons .diaporama-previous {
     top: calc(45% - 2.5em);
     height: 5em;
 }
 
-.contentPage header .navButtons .diaporama-close {
+.tpl_content header .navButtons .diaporama-close {
     display: none;
 }
 
 
-.contentPage.fullscreen-diaporama header .navButtons .diaporama-close {
+.tpl_content.fullscreen-diaporama header .navButtons .diaporama-close {
     display: block;
 }
 
-.contentPage.fullscreen-diaporama header .mapButton,
-.contentPage.fullscreen-diaporama header .closeButton,
-.contentPage.fullscreen-diaporama header .backButton {
+.tpl_content.fullscreen-diaporama header .mapButton,
+.tpl_content.fullscreen-diaporama header .closeButton,
+.tpl_content.fullscreen-diaporama header .backButton {
     display: none;
 }
 
-.contentPage header .navButtons .diaporama-next {
+.tpl_content.fullscreen-diaporama .nav {
+    display: none;
+}
+
+.tpl_content header .navButtons .diaporama-next {
     left: auto;
     right: 0;
 }
 
-.contentPage header .navButtons .diaporama-close {
+.tpl_content header .navButtons .diaporama-close {
     left: auto;
     top: 0.5em;
     right: 0.5em;
@@ -399,7 +352,7 @@ body {
     height: 2em;
 }
 
-.contentPage header .legendContainer {
+.tpl_content header .legendContainer {
     display: none;
     position: absolute;
     bottom: 0;
@@ -413,11 +366,11 @@ body {
     transform-origin: bottom;
 }
 
-.contentPage.fullscreen-diaporama header .legendContainer {
+.tpl_content.fullscreen-diaporama header .legendContainer {
     display: block;
 }
 
-.contentPage.fullview header .legendContainer {
+.tpl_content.fullview header .legendContainer {
     transform: scaleY(0);
     transform-origin: bottom;
 }
@@ -444,25 +397,18 @@ body {
 
 
 
-.contentPage .mainContent{
+.tpl_content .mainContent{
     background-size: cover;
 }
 
 
 
-.contentPage .mainContent .bt.heading {
+.tpl_content .mainContent .bt.heading {
     font-size: 1.3em;
     padding-right: 2em;
 }
 
-.contentPage .mainContent .bt.em {
-    font-style: italic;
-}
-
-
-
-
-.contentPage .mainContent .body {
+.tpl_content .mainContent .body {
     margin: 0em 2.5em;
     background: white;
     padding: 2em;
@@ -476,7 +422,7 @@ body {
 
 
 
-
+/*
 
 .tpl_livre.contentPage .mainContent .body {
     margin: 0em 0em;
@@ -523,12 +469,12 @@ body {
 .tpl_page_medias.contentPage .mainContent .body {
     margin: 0;
 }
-
+*/
 
 
 @media (min-width: 900px) , (orientation: landscape) {
         
-    .contentPage header {
+    .tpl_content header {
         top: 0;
         left: 0;
         width: calc(50% - 0.5em);
@@ -539,12 +485,12 @@ body {
     }
 
 
-    .contentPage header {
+    .tpl_content header {
         width: 50%;
         border: 0;
     }
 
-    .contentPage .mainContent {
+    .tpl_content .mainContent {
         top: 0;
         left: 50%;
         right: 0;
@@ -553,12 +499,13 @@ body {
 
     }
 
-    .contentPage footer {
+    .tpl_content footer {
         left: 50%;
         right: 0;
 
     }
 
+/*
     .tpl_livre.contentPage .mainContent {
         height: calc(100% - 5rem);
 
@@ -576,71 +523,12 @@ body {
         max-width: none;
     }
 
-    .tpl_livre.contentPage footer {
-        /*height: calc(20% - 0.5em);*/
-    }
+    */
 
 
 
 }
 
-/*
-@media (min-width: 1024px) and (orientation: landscape) {
-        
-    .contentPage .container {
-    }
-
-    .contentPage header {
-        top: 0;
-        left: 0;
-        width: calc(50% - 0.5em);
-        height: 100%;
-
-        border-bottom: 0;
-        border-right: .5em solid white;
-    }
-
-
-    .contentPage .mainContent {
-        top: 0;
-        left: 50%;
-        right: 0;
-        height: 88%;
-
-
-    }
-
-    .contentPage footer {
-        top: 92%;
-        left: 50%;
-        right: 0;
-        height: 8%;
-        
-    }
-
-    .tpl_livre.contentPage .mainContent {
-        height: calc(90% - 1em);
-    }
-
-    .tpl_page_medias.contentPage .mainContent {
-        height: 100%;
-    }
-
-    .tpl_chapitre.contentPage .mainContent {
-        height: calc(90% - 1em);
-    }
-
-    .contentPage .items.bottom-menu {
-        max-width: none;
-    }
-
-    .tpl_livre.contentPage footer {
-        height: calc(8% - 0.5em);
-    }
-
-
-
-}*/
 
 
 
@@ -795,40 +683,5 @@ body {
 
 
 
-
-
-
-.menuButton {
-    position: absolute;
-    top: 0em;
-    left: 0em;
-
-
-    height: 40px;
-    width: 40px;
-}
-
-.menuButton img {
-    width: 100%;
-}
-
-
-.backButton, .closeButton, .mapButton {
-    position: absolute;
-    top: 0em;
-    right: 0em;
-
-    height: 40px;
-    width: 40px;
-}
-
-.backButton img, .closeButton img, .mapButton img {
-    width: 100%;
-}
-
-.closeButton {
-    top: 0.5em;
-    right: 0.5em;
-}
 
 

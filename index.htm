@@ -16,8 +16,7 @@
 
     <meta name="description" content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
 
-    <link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css">
-    <!-- link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-base.css" -->
+    <link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-base.css">
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="diaporama/diaporama.css">
 
@@ -91,42 +90,38 @@
 
 
 
-        <section id="tpl_content" class="scene contentPage" frigg-slot-class="custom_data">
+        <section id="tpl_content" class="scene" frigg-slot-class="custom_data">
 
             <div frigg-slot-bg="background" class="container">
-            
 
             <header class="diapo-viewport">
                 <div class="diaporama diapo-ribbon" >
-                    <img draggable="false" frigg-slot-srcAlt="header" class="diapo-item" />
+                    <img draggable="false" frigg-slot-srcAlt="images" class="diapo-item" />
                 </div>
 
                 <p class="navButtons">
-                    <img draggable="false" frigg-slot-srcAlt="diapo_close_icon" class="diaporama-close"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_previous_icon" class="diaporama-previous"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_next_icon" class="diaporama-next" />
+                    <img draggable="false" frigg-slot-srcAlt="close_icon" class="diaporama-close"/>
+                    <img draggable="false" frigg-slot-srcAlt="previous_icon" class="diaporama-previous"/>
+                    <img draggable="false" frigg-slot-srcAlt="next_icon" class="diaporama-next" />
                 </p>
 
                 <p class="legendContainer"></p>
 
-                <!-- <p class="menuButton"><img draggable="false" frigg-slot-srcAlt="menu_icon" frigg-slot-link="menu_link" /></p> -->
-                <p class="mapButton"><img draggable="false" frigg-slot-srcAlt="map_icon" frigg-slot-link="map_link" /></p>
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
                 
             </header>
 
             <section class="mainContent">
 
                 <div class="body">
-                    <h2 frigg-slot-html="title"></h2>
-
-                    <div>   
-                        <audio frigg-slot-srcAlt="main_audio"></audio>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                        <img draggable="false" frigg-slot-srcAlt="audio_icon_pause" frigg-media-control frigg-event-media-started class="audio_control"/>
+                    <div class="audio_block">
+                        <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
+                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control"/>
                     </div>
 
-
-                    <div frigg-slot-html="main_text"></div>
+                    <div frigg-slot-html="content"></div>
                 </div>
 
                 
@@ -134,8 +129,8 @@
             </section>
 
             <footer>
-                <div class="body items bottom-menu">
-                    <img draggable="false" frigg-slot-srcAlt="bottom_icons" frigg-slot-link="bottom_links" class="item"/>
+                <div class="body items bottom-menu" >
+                    <img draggable="false" frigg-slot-srcAlt="items_image" frigg-slot-link="items_link" class="item"/>
                 </div>
             </footer>
 
@@ -149,51 +144,6 @@
 
 
 
-
-        <section id="tpl_page_medias" class="scene contentPage" frigg-slot-class="custom_data">
-            <header class="diapo-viewport">
-                <div class="diaporama diapo-ribbon">
-                    <img draggable="false" frigg-slot-srcAlt="header" class="diapo-item" />
-                </div>
-
-                <p class="navButtons">
-                    <img draggable="false" frigg-slot-srcAlt="diapo_close_icon" class="diaporama-close"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_previous_icon" class="diaporama-previous"/>
-                    <img draggable="false" frigg-slot-srcAlt="diapo_next_icon" class="diaporama-next" />
-                </p>
-
-                <p class="legendContainer"></p>
-
-                <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
-            </header>
-
-            <section frigg-slot-bg="background" class="mainContent">
-
-                <div class="body">
-                    <h2 frigg-slot-html="title" class="title"></h2>
-                    <div frigg-slot-html="main_text"></div>
-                </div>
-
-                <div>   
-                    <audio frigg-slot-srcAlt="main_audio"></audio>
-                    <img draggable="false" frigg-slot-srcAlt="audio_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                    <img draggable="false" frigg-slot-srcAlt="audio_icon_pause" frigg-media-control frigg-event-media-started class="audio_control"/>
-                </div>
-
-            </section>
-
-        </section>
-
-        <section id="tpl_video" class="scene" frigg-slot-class="custom_data">
-
-            <iframe frigg-slot-srcAlt="main_video" width="100%" height="100%" class="videoFrame" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; encrypted-media"></iframe>
-
-            <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
-
-        </section>
-
-
-        
 
 
 
@@ -257,8 +207,7 @@
     </div>
 
 
-<!--script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-v1/src/frigg-sdk.js"></script-->
-<script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script>
+<script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script>
 
 <script type="text/javascript" src="diaporama-options.js" ></script>
 <script type="text/javascript" src="frigg-options.js" ></script>
