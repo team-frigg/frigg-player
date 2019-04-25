@@ -136,11 +136,17 @@ body {
     position: absolute;
 }
 
-.audio_block .audio_control.disabled {
+.audio_block .audio_control {
     display: none;
 }
 
+.media_can_play .audio_block .audio_control.play {
+    display: block;
+} 
 
+.media_can_pause .audio_block .audio_control.pause {
+    display: block;
+} 
 
 /* nav buttons */
 
