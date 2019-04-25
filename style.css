@@ -267,9 +267,7 @@ body {
     left: 0;
     right: 0;
     height: calc(70% - 4rem);
-
     overflow-y: scroll;
-
 }
 
 .tpl_content footer {
@@ -279,10 +277,17 @@ body {
     right: 0;
     height: 4rem;
     padding: 0em;
-
     text-align: center;
 }
 
+
+.tpl_content.has_not_items_image .mainContent {
+    height: calc(70% - 0rem);
+}
+
+.tpl_content.has_not_items_image footer {
+    display: none;
+}
 
 .tpl_content .audio_control {
     top:1em;
@@ -416,62 +421,6 @@ body {
     overflow-y: scroll;
 }
 
-
-
-
-
-
-
-/*
-
-.tpl_livre.contentPage .mainContent .body {
-    margin: 0em 0em;
-    
-}
-
-.tpl_livre.contentPage .mainContent{
-    height: calc(70% - 5rem);
-
-    padding-bottom: 1rem;
-    background: white;
-    border-radius: 0 0 2em 2em;
-}
-
-
-
-
-
-.tpl_chapitre.contentPage .mainContent{
-    height: calc(70% - 5rem);
-
-    padding-bottom: 1rem;
-    background-color: white;
-}
-
-.tpl_chapitre.contentPage footer{
-    background-color: rgb(53, 32, 97);
-}
-.tpl_chapitre.contentPage .mainContent .body {
-
-    margin: 0;
-}
-
-
-.tpl_page_medias.contentPage .title {
-    margin-bottom: 1em;
-    padding-right: 1em;
-}
-
-.tpl_page_medias.contentPage .mainContent {
-    height: calc(70% - 1em);
-}
-
-.tpl_page_medias.contentPage .mainContent .body {
-    margin: 0;
-}
-*/
-
-
 @media (min-width: 900px) , (orientation: landscape) {
         
     .tpl_content header {
@@ -495,8 +444,6 @@ body {
         left: 50%;
         right: 0;
         height: calc(100% - 4rem);
-
-
     }
 
     .tpl_content footer {
@@ -505,25 +452,14 @@ body {
 
     }
 
-/*
-    .tpl_livre.contentPage .mainContent {
-        height: calc(100% - 5rem);
 
+    .tpl_content.has_not_items_image .mainContent {
+        height: calc(100% - 0rem);
     }
 
-    .tpl_page_medias.contentPage .mainContent {
-        height: calc(100% - 1em);
+    .tpl_content.has_not_items_image footer {
+        display: none;
     }
-
-    .tpl_chapitre.contentPage .mainContent {
-        height: calc(100% - 5rem);
-    }
-
-    .contentPage .items.bottom-menu {
-        max-width: none;
-    }
-
-    */
 
 
 
