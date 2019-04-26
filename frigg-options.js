@@ -56,8 +56,20 @@ var friggConfig = {
                 container: theMapId
             }
 
+            try {
+                var position = '[' + sceneData.map_center[0].content + ']';
+                mapOption.center = JSON.parse(position);
+            } catch (e) {
+                //default center
+            }
+
+            if (sceneData.map_zoom[0].content) {
+                mapOption.zoom = sceneData.map_zoom[0].content;
+            }
+
+
             if (sceneData.map_style[0]) {
-                mapOption.style = sceneData.map_style[0].content
+                mapOption.style = sceneData.map_style[0].content;
             }
 
             var map = new mapboxgl.Map(mapOption);
@@ -99,10 +111,10 @@ var friggConfig = {
                 //console.log(destionationScene.template_id);
                 var toSceneTemplate = "to-" + frigg._cleanTemplateName(frigg.project.templates[destionationScene.template_id].label);
 
-
                 var latitude = destionationScene.geo_latitude;
                 var longitude = destionationScene.geo_longitude;
-                var level = getLevelName(destionationScene.geo_level);
+                var level = destionationScene.geo_level;
+                var levelName = getLevelName(destionationScene.geo_level);
 
                 var label = destionationScene.label;
 
@@ -115,16 +127,17 @@ var friggConfig = {
                 }
 
                 var popupElt = document.createElement('div');
-                popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+ level;
+                popupElt.setAttribute("frigg-zoom-min", level);
+                popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+level;
                 popupElt.innerHTML = "<h3>" + label + '</h3>';
 
                 var popupMarker = new mapboxgl.Marker({'element': popupElt, anchor: 'bottom'})
-                  .setOffset([0, -25])
+                  .setOffset([0, 0])
                   .setLngLat([longitude, latitude])
                   .addTo(map);
 
-                
                 var markerElt = document.createElement('div');
+                markerElt.setAttribute("frigg-zoom-min", level);
                 markerElt.className = toSceneTemplate + ' map-marker map-item map-level-'+ level;
 
                 var marker = new mapboxgl.Marker(markerElt)
@@ -140,33 +153,39 @@ var friggConfig = {
             
             }
 
-            
+            var handleVisibility = function(map, frigg){
+                var maxZoom = 25;
+                var zoom = Math.round(map.getZoom());
+                console.log("Map zoom : " + zoom);
+
+                var selectorPattern = "div[frigg-zoom-min='%level%']";
+                var selectorList = [];
+
+                for (var i=zoom+1; i < maxZoom; i++) {
+                    var selectorLine = selectorPattern.replace("%level%", i);
+                    selectorList.push(selectorLine);
+                }
+
+                var selector = selectorList.join(',');
+
+                var container = map.getContainer();
+                frigg.applyClassBySelector(container, ".map-item", "hidden", "remove");
+                frigg.applyClassBySelector(container, selector, "hidden", "add");
+            }
 
             //poi & popup
-            for(var connectionIndex in sceneData['_anonymous_connection']){
-                var connection = sceneData['_anonymous_connection'][connectionIndex];
+            for(var connectionIndex in sceneData['poi_list']){
+                var connection = sceneData['poi_list'][connectionIndex];
                 createMarker(map, frigg, connection);
                 
             }
 
             map.on("zoomend", function(data){
-                var zoom = Math.round(this.getZoom());
-
-                var toHide = null;
-                if (zoom <= thresholdLevel) {
-                    toHide = ".map-level-secondary";
-                }
-
-                //console.log("Map zoom : " + zoom + " vs threshold : " + thresholdLevel);
-                //console.log(" items to hide : " + toHide);
-
-                var container = this.getContainer();
-                frigg.applyClassBySelector(container, ".map-item", "hidden", "remove");
-                if (toHide) frigg.applyClassBySelector(container, toHide, "hidden", "add");
-
+                handleVisibility(map, frigg);
             });
 
             map.resize();
+            handleVisibility(map, frigg);
             
         }
     }

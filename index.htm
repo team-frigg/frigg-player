@@ -16,7 +16,9 @@
 
     <meta name="description" content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
 
-    <link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css">
+    <!-- link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css" -->
+    <link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-base.css">
+
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="diaporama/diaporama.css">
 
@@ -49,7 +51,6 @@
                     <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
                     <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
                     <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
-
                 </div>
 
 
@@ -71,11 +72,8 @@
                 <div class="card">
                     <div class="audio_block">
                         <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
-                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control"/>
-                        --
-                        <img draggable="false" frigg-slot-srcAlt="play_icon"  class="audio_control play"/>
-                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control pause"/>
+                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
+                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
                     </div>
 
                     <div class="content">
@@ -122,8 +120,8 @@
                 <div class="body">
                     <div class="audio_block">
                         <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
-                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control frigg-event-media-paused class="audio_control"/>
-                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control frigg-event-media-started class="audio_control"/>
+                        <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
+                        <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
                     </div>
 
                     <div frigg-slot-html="content"></div>
@@ -155,13 +153,13 @@
 
         <section id="tpl_map" class="scene" frigg-slot-class="custom_data">
 
-            <div class="container">
+            <div class="container" frigg-slot-bg="background">
                 <div class='mapContainer'></div> <!-- the map is actually loaded by the listener -->
                 <p class="menuButton"><img draggable="false" frigg-slot-srcAlt="menu_icon" frigg-slot-link="menu_link" /></p>
 
                 <footer>
                     <div class="body items bottom-menu">
-                        <img draggable="false" frigg-slot-srcAlt="bottom_icons" frigg-slot-link="bottom_links" class="item link"/>
+                        <img draggable="false" frigg-slot-srcAlt="items_image" frigg-slot-link="items_link" class="item link"/>
                     </div>
                 </footer>
             
@@ -212,7 +210,9 @@
     </div>
 
 
-<script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script>
+<!--script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script-->
+<script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script>
+
 
 <script type="text/javascript" src="diaporama-options.js" ></script>
 <script type="text/javascript" src="frigg-options.js" ></script>
