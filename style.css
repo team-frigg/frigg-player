@@ -246,7 +246,7 @@ body {
 }
 
 .tpl_choices .items .item {
-    flex-basis: 25%;
+    min-width: 4rem;
     list-style: none;
     text-align: center;
 
