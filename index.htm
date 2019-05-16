@@ -181,11 +181,6 @@
                     <li frigg-slot-html="items" frigg-slot-link="items_target"></li>
                 </ul>
             </div>
-
-
-            
-            
-            
         </section>
 
         <section id="tpl_page_informations" class="scene contentPage" frigg-slot-class="custom_data">
@@ -207,6 +202,24 @@
 
             </div>
         </section>
+
+
+
+
+        <section id="tpl_text_input" class="scene" frigg-slot-class="custom_data">
+            <div frigg-slot-bg="background" class="container carded">
+                <form class="form">
+                    <p frigg-slot-html="content"></p>
+                    <p frigg-slot-html="failure_content" class="failure_content"></p>
+
+                    <p class="formItem text"><input type="text" name="input" autocomplete="off" /></p>
+                    <p class="formItem button"><button class="standardButton" frigg-slot-html="button_label"></button></p>
+                </form>
+            </div>
+        </section>
+
+
+
     </div>
 
 

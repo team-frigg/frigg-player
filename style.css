@@ -194,6 +194,14 @@ body {
 }
 
 
+/* standardButton */
+
+.standardButton {
+    background-color: black;
+    color: white;
+}
+
+
 /*************/
 /* TEMPLATES */
 /*************/
@@ -571,10 +579,62 @@ body {
 
 
 
-/*
 
 
-*/
+
+
+/* tpl_text_input */
+
+.tpl_text_input .container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.tpl_text_input .form {
+    text-align: center;
+}
+
+.tpl_text_input .formItem {
+    margin: 1em 0;
+}
+
+.tpl_text_input .formItem.text input {
+    font-size: 1.3em;
+    border: 1px solid grey;
+    text-align: center;
+
+    padding: 0.5em;
+    display: inline-block;
+}
+
+.tpl_text_input .formItem.button button {
+    font-size: 0.8em;
+    text-transform: uppercase;
+
+    padding: 0.5em;
+    margin-top: 1em;
+    display: inline-block;
+}  
+
+.tpl_text_input .success_content,
+.tpl_text_input .failure_content {
+    display: none;
+    margin: 1em;
+}
+
+
+.tpl_text_input.pattern_ok .success_content {
+    display: block;
+}
+
+.tpl_text_input.pattern_nok .failure_content {
+    display: block;
+}
+
+
+
 
 
 

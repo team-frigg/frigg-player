@@ -42,6 +42,42 @@ var friggConfig = {
             frigg.pausableElements.push(player);
         },
 
+        'text_input': function(element, sceneData, frigg) {
+            var theForm = element.querySelector('.form');
+
+            theForm.addEventListener("submit", function(event){
+                event.preventDefault();
+
+                var userInput = theForm.input.value.toLowerCase();
+
+                for(var i in sceneData.pattern) {
+                    var pattern = sceneData.pattern[i].content.toLowerCase();
+
+                    if (pattern == userInput) {
+                        element.classList.add("pattern_ok");
+                        element.classList.remove("pattern_nok");
+
+                        var targetIndex = Math.min(i, sceneData.success_link.length-1);
+                        var targetScene = sceneData.success_link[targetIndex];
+
+                        frigg.gotoScene(targetScene.destination_scene_id);
+                        return
+                    }
+                }
+
+                element.classList.add("pattern_nok");
+                element.classList.remove("pattern_ok");
+                theForm.input.value = "";
+
+                if (sceneData.failure_link) {
+                    var targetScene = sceneData.failure_link[0];
+                    frigg.gotoScene(targetScene.destination_scene_id);
+                }
+
+            })
+
+        },
+
         'map': function (element, sceneData, frigg) {
             if (! sceneData.map_token[0].content) {
                 console.error("You must set a map_token in your map template.")
