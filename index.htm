@@ -206,7 +206,7 @@
 
 
 
-        <section id="tpl_text_input" class="scene" frigg-slot-class="custom_data">
+        <section id="tpl_text_input" frigg-slot-class="custom_data">
             <div frigg-slot-bg="background" class="container carded">
                 <form class="form">
                     <p frigg-slot-html="content"></p>
@@ -218,7 +218,24 @@
             </div>
         </section>
 
+        <section id="tpl_qrcode" frigg-slot-class="custom_data">
+            <div frigg-slot-bg="background" class="container carded">
+                <form class="form">
+                    <p frigg-slot-html="content"></p>
+                    <p frigg-slot-html="failure_content" class="failure_content"></p>
+                    <p frigg-slot-html="error_content" class="error_content"></p>
 
+                    <p class="formItem file">
+                        <label>
+                            <span class="standardButton" frigg-slot-html="button_label"></span>
+                            <input type="file" name="input" />
+                        </label>
+                    </p>
+                </form>
+
+                <p class="bypassButton" frigg-slot-html="bypass_label" frigg-slot-link="bypass_link"></p>
+            </div>
+        </section>
 
     </div>
 
@@ -226,9 +243,33 @@
 <!--script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script-->
 <script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script>
 
-
 <script type="text/javascript" src="diaporama-options.js" ></script>
 <script type="text/javascript" src="frigg-options.js" ></script>
+
+
+
+<!-- https://github.com/LazarSoft/jsqrcode -->
+<script type="text/javascript" src="qrcode-src/grid.js"></script>
+<script type="text/javascript" src="qrcode-src/version.js"></script>
+<script type="text/javascript" src="qrcode-src/detector.js"></script>
+<script type="text/javascript" src="qrcode-src/formatinf.js"></script>
+<script type="text/javascript" src="qrcode-src/errorlevel.js"></script>
+<script type="text/javascript" src="qrcode-src/bitmat.js"></script>
+<script type="text/javascript" src="qrcode-src/datablock.js"></script>
+<script type="text/javascript" src="qrcode-src/bmparser.js"></script>
+<script type="text/javascript" src="qrcode-src/datamask.js"></script>
+<script type="text/javascript" src="qrcode-src/rsdecoder.js"></script>
+<script type="text/javascript" src="qrcode-src/gf256poly.js"></script>
+<script type="text/javascript" src="qrcode-src/gf256.js"></script>
+<script type="text/javascript" src="qrcode-src/decoder.js"></script>
+<script type="text/javascript" src="qrcode-src/qrcode.js"></script>
+<script type="text/javascript" src="qrcode-src/findpat.js"></script>
+<script type="text/javascript" src="qrcode-src/alignpat.js"></script>
+<script type="text/javascript" src="qrcode-src/databr.js"></script>
+
+
+
+
 
 <script type="text/javascript">
 

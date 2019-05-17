@@ -78,6 +78,81 @@ var friggConfig = {
 
         },
 
+        'qrcode': function(element, sceneData, frigg) {
+            var theForm = element.querySelector('.form');
+
+            var gotoFailure = function(){
+                if (sceneData.failure_link) {
+                    frigg.gotoScene(sceneData.failure_link[0].destination_scene_id);
+                }
+            }.bind(this);
+
+            var gotoSuccess = function(sceneId){
+                frigg.gotoScene(sceneId);
+            }.bind(this);
+
+            qrcode.callback = function(data) {
+                try {
+                    //expect : domain#project=XX&scene=YY
+                    var projectIdPattern = /project=([0-9]+)/i;
+                    var sceneIdPattern = /scene=([0-9]+)/i;
+
+                    var projectId = data.match(projectIdPattern)[1];
+                    var sceneId = data.match(sceneIdPattern)[1];
+
+                    if (frigg.project.project_id != projectId) {
+                        console.log("Qrcode : can't find project id");
+                        element.classList.add("qrcode_error");
+                        return;
+                    }
+
+                    if (sceneData.authorized_link) {
+                        for(var i in sceneData.authorized_link) {
+                            var authorizedTargetId = sceneData.authorized_link[i].destination_scene_id;
+                            if (authorizedTargetId == sceneId) {
+                                console.log("Qrcode : found valid scene !");
+                                element.classList.add("qrcode_success");
+                                return gotoSuccess(authorizedTargetId);
+                            }
+                        }
+
+                        console.log("Qrcode : not a valid scene !");
+                        element.classList.add("qrcode_failure");
+                        return gotoFailure();
+                    }
+
+                    element.classList.add("qrcode_failure");
+
+                } catch(e) {
+                    console.log("Qrcode : error decoding code");
+                    element.classList.add("qrcode_error");
+                }
+
+            }
+
+            theForm.addEventListener("input", function(event){
+                element.classList.remove("qrcode_success");
+                element.classList.remove("qrcode_failure");
+                element.classList.remove("qrcode_error");
+
+                var file = theForm.input.files[0];
+
+                if (file) {
+                    var reader = new FileReader();
+                    reader.readAsDataURL(file);
+
+                    reader.onload = function (evt) {
+                        qrcode.decode(evt.target.result);
+                    }
+                    reader.onerror = function (evt) {
+                        element.classList.add("qrcode_error");
+                    }
+                }
+                
+                
+            });
+        },
+
         'map': function (element, sceneData, frigg) {
             if (! sceneData.map_token[0].content) {
                 console.error("You must set a map_token in your map template.")

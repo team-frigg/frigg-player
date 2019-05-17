@@ -199,6 +199,7 @@ body {
 .standardButton {
     background-color: black;
     color: white;
+    padding: 0.5em;
 }
 
 
@@ -637,6 +638,65 @@ body {
 
 
 
+
+
+
+/* tpl_qrcode */
+
+.tpl_qrcode .container {
+    display: flex;
+    flex-direction: column;
+    /* align-items: center; */
+    justify-content: center;
+}
+
+.tpl_qrcode .form {
+    text-align: center;
+}
+
+.tpl_qrcode .formItem {
+    margin: 1em 0;
+}
+
+.tpl_qrcode .formItem.file input {
+    display: none;
+}
+
+
+.tpl_qrcode .formItem.button button {
+    font-size: 0.8em;
+    text-transform: uppercase;
+
+    padding: 0.5em;
+    margin-top: 1em;
+    display: inline-block;
+}  
+
+.tpl_qrcode .error_content,
+.tpl_qrcode .failure_content {
+    display: none;
+    margin: 1em;
+}
+
+
+.tpl_qrcode.qrcode_error .error_content {
+    display: block;
+}
+
+.tpl_qrcode.qrcode_failure .failure_content {
+    display: block;
+}
+
+
+.tpl_qrcode .bypassButton {
+    position: absolute;
+    bottom: 1rem;
+    text-align: center;
+    left: 0;
+    right: 0;
+    opacity: 0.6;
+    font-size: 0.9em;
+}
 
 
 
