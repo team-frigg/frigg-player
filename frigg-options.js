@@ -1,8 +1,4 @@
 
-var log = function(message) {
-    alert(message);
-}
-
 var friggConfig = {
     
     //"projectUrlPrefix": "http://frigg.local/api/project/",
@@ -105,7 +101,7 @@ var friggConfig = {
                     var sceneId = data.match(sceneIdPattern)[1];
 
                     if (frigg.project.project_id != projectId) {
-                        log("Qrcode : can't find project id");
+                        console.log("Qrcode : can't find project id");
                         element.classList.add("qrcode_error");
                         element.classList.remove("qrcode_processing");
                         return;
@@ -115,14 +111,14 @@ var friggConfig = {
                         for(var i in sceneData.authorized_link) {
                             var authorizedTargetId = sceneData.authorized_link[i].destination_scene_id;
                             if (authorizedTargetId == sceneId) {
-                                log("Qrcode : found valid scene !");
+                                console.log("Qrcode : found valid scene !");
                                 element.classList.add("qrcode_success");
                                 element.classList.remove("qrcode_processing");
                                 return gotoSuccess(authorizedTargetId);
                             }
                         }
 
-                        log("Qrcode : not a valid scene !");
+                        console.log("Qrcode : not a valid scene !");
                         element.classList.add("qrcode_failure");
                         element.classList.remove("qrcode_processing");
                         return gotoFailure();
@@ -132,7 +128,7 @@ var friggConfig = {
                     element.classList.remove("qrcode_processing");
 
                 } catch(e) {
-                    log("Qrcode : error decoding code");
+                    console.log("Qrcode : error decoding code");
                     element.classList.add("qrcode_error");
                     element.classList.remove("qrcode_processing");
                 }
@@ -140,8 +136,6 @@ var friggConfig = {
             }
 
             theForm.addEventListener("input", function(event){
-                log("Qrcode : input");
-
                 element.classList.remove("qrcode_success");
                 element.classList.remove("qrcode_failure");
                 element.classList.remove("qrcode_error");
@@ -154,11 +148,9 @@ var friggConfig = {
                     reader.readAsDataURL(file);
 
                     reader.onload = function (evt) {
-                        log("Qrcode : onload");
                         qrcode.decode(evt.target.result);
                     }
                     reader.onerror = function (evt) {
-                        log("Qrcode : onerror");
                         element.classList.add("qrcode_error");
                         element.classList.remove("qrcode_processing");
                     }
