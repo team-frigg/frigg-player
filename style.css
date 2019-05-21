@@ -673,7 +673,8 @@ body {
 }  
 
 .tpl_qrcode .error_content,
-.tpl_qrcode .failure_content {
+.tpl_qrcode .failure_content,
+.tpl_qrcode .processing_content  {
     display: none;
     margin: 1em;
 }
@@ -686,6 +687,11 @@ body {
 .tpl_qrcode.qrcode_failure .failure_content {
     display: block;
 }
+
+.tpl_qrcode.qrcode_processing .processing_content {
+    display: block;
+}
+
 
 
 .tpl_qrcode .bypassButton {

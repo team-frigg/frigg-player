@@ -103,6 +103,7 @@ var friggConfig = {
                     if (frigg.project.project_id != projectId) {
                         console.log("Qrcode : can't find project id");
                         element.classList.add("qrcode_error");
+                        element.classList.remove("qrcode_processing");
                         return;
                     }
 
@@ -112,20 +113,24 @@ var friggConfig = {
                             if (authorizedTargetId == sceneId) {
                                 console.log("Qrcode : found valid scene !");
                                 element.classList.add("qrcode_success");
+                                element.classList.remove("qrcode_processing");
                                 return gotoSuccess(authorizedTargetId);
                             }
                         }
 
                         console.log("Qrcode : not a valid scene !");
                         element.classList.add("qrcode_failure");
+                        element.classList.remove("qrcode_processing");
                         return gotoFailure();
                     }
 
                     element.classList.add("qrcode_failure");
+                    element.classList.remove("qrcode_processing");
 
                 } catch(e) {
                     console.log("Qrcode : error decoding code");
                     element.classList.add("qrcode_error");
+                    element.classList.remove("qrcode_processing");
                 }
 
             }
@@ -134,6 +139,7 @@ var friggConfig = {
                 element.classList.remove("qrcode_success");
                 element.classList.remove("qrcode_failure");
                 element.classList.remove("qrcode_error");
+                element.classList.add("qrcode_processing");
 
                 var file = theForm.input.files[0];
 
@@ -146,6 +152,7 @@ var friggConfig = {
                     }
                     reader.onerror = function (evt) {
                         element.classList.add("qrcode_error");
+                        element.classList.remove("qrcode_processing");
                     }
                 }
                 
