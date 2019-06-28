@@ -11,7 +11,7 @@ var getDiaporamaOptions = function(containerElement) {
         'autoPlayIntervalMs': 0,
 
         onChange: function(event) {
-            containerElement.querySelector(".legendContainer").innerHTML = event.selectedItem.getAttribute("alt");
+            containerElement.querySelector(".legendContainer").innerHTML = event.selectedItem.getAttribute("frigg-data");
         },
 
         onClick: function(event) {

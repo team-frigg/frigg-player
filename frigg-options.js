@@ -39,6 +39,34 @@ var friggConfig = {
             var frame = element.querySelector('.videoFrame');
             var player = new Vimeo.Player(frame);
 
+            player.on('play', function() {
+                element.classList.add('media_playing');
+                element.classList.remove('media_finished');
+                element.classList.remove('media_paused');
+            });
+
+            player.on('pause', function() {
+                element.classList.add('media_paused');
+                element.classList.remove('media_playing');
+                element.classList.remove('media_finished');
+            });
+
+            player.on('ended', function() {
+                element.classList.add('media_finished');
+                element.classList.remove('media_playing');
+                element.classList.remove('media_finishing');
+                element.classList.remove('media_paused');
+            });
+
+            player.on('timeupdate', function(e) {
+                var p = e.percent * 100;
+
+                if (p > 90 || e.duration - e.seconds < 5) {
+                    element.classList.add('media_finishing');
+                }
+            });
+
+
             frigg.pausableElements.push(player);
         },
 

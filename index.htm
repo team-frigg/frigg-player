@@ -56,7 +56,7 @@
 
                 <div class="contentBlock" >
                     <img draggable="false" class="front" frigg-slot-srcAlt="front" frigg-slot-link="next" />
-                    <p frigg-slot-html="content" frigg-slot-link="next" ></p>
+                    <p frigg-slot-html="content" frigg-slot-link="next" class="text" ></p>
                 </div>
 
             </div>
@@ -92,14 +92,14 @@
 
 
 
-
+        <!-- TEMPLATE : Content-->
         <section id="tpl_content" class="scene" frigg-slot-class="custom_data">
 
             <div frigg-slot-bg="background" class="container">
 
             <header class="diapo-viewport">
                 <div class="diaporama diapo-ribbon" >
-                    <img draggable="false" frigg-slot-srcAlt="images" class="diapo-item" />
+                    <img draggable="false" frigg-slot-srcAlt="images" class="diapo-item" frigg-slot-data="legends"/>
                 </div>
 
                 <p class="navButtons">
@@ -149,7 +149,7 @@
 
 
 
-
+        <!-- TEMPLATE : MAP -->
 
         <section id="tpl_map" class="scene" frigg-slot-class="custom_data">
 
@@ -167,6 +167,28 @@
 
             
         </section>
+
+
+
+
+        <!-- TEMPLATE : Video-->
+        <section id="tpl_video" class="scene" frigg-slot-class="custom_data">
+            <div class="container">
+                <iframe frigg-slot-srcAlt="video" width="100%" height="100%" class="videoFrame" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; encrypted-media"></iframe>
+
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
+
+                <ul class="items">
+                    <li frigg-slot-link="items_link" frigg-slot-html="items_text" class="item"></li>
+                </ul>
+            </div>
+
+        </section>
+
+
+
+
 
 
 
