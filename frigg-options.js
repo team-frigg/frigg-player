@@ -249,7 +249,7 @@ var friggConfig = {
             }
 
             
-            var createMarker = function(map, frigg, connection){
+            var createMarker = function(map, frigg, connection, media){
                 
                 var destinationSceneId = connection.destination_scene_id;
                 var destionationScene = frigg.project.scenes[destinationSceneId];
@@ -285,6 +285,14 @@ var friggConfig = {
                 var markerElt = document.createElement('div');
                 markerElt.setAttribute("frigg-zoom-min", level);
                 markerElt.className = toSceneTemplate + ' map-marker map-item map-level-'+ level;
+                
+                if (media) {
+                    markerElt.style.backgroundImage = 'url(' + frigg.params.mediaFilePrefix + media.content + ')';
+                    markerElt.classList.add('withImage');
+                } else {
+                    markerElt.classList.add('withoutImage');
+                }
+                
 
                 var marker = new mapboxgl.Marker(markerElt)
                   .setLngLat([longitude, latitude])
@@ -322,7 +330,17 @@ var friggConfig = {
             //poi & popup
             for(var connectionIndex in sceneData['poi_list']){
                 var connection = sceneData['poi_list'][connectionIndex];
-                createMarker(map, frigg, connection);
+
+                var media = null;
+
+                if (sceneData['poi_icon'] ){
+                    var match = sceneData['poi_icon'][connectionIndex];
+                    var last = sceneData['poi_icon'][sceneData['poi_icon'].length-1];
+                    
+                    media = match ? match : last;
+                }
+
+                createMarker(map, frigg, connection, media);
                 
             }
 
