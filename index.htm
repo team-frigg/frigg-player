@@ -187,47 +187,23 @@
         </section>
 
 
-
-
-
-
-
-
-        <section id="tpl_menu" class="scene" frigg-slot-class="custom_data">
-            <div class="container">
-                <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
-
-                <p frigg-slot-html="title" ></p>
-
-                <ul class="items">
-                    <li frigg-slot-html="items" frigg-slot-link="items_target"></li>
-                </ul>
-            </div>
-        </section>
-
-        <section id="tpl_page_informations" class="scene contentPage" frigg-slot-class="custom_data">
-            <div class="container">
-
-                <p class="closeButton"><img draggable="false" frigg-slot-srcAlt="close_icon" frigg-slot-link="close_link" /></p>
-
+        <!-- TEMPLATE : Information -->
+        <section id="tpl_information" class="scene" frigg-slot-class="custom_data">
+            <div class="container" frigg-slot-bg="background" >
+                
                 <div class="body">
-                    <h2 frigg-slot-html="title" class="title"></h2>
-                    <div frigg-slot-html="main_text"></div>
+                    <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                    <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
 
-                    <div class="images" >
-                        <img draggable="false" frigg-slot-srcAlt="images" />
+                    <div class="infos">
+                        <div frigg-slot-html="texts" frigg-slot-bg="images" frigg-slot-link="links" class="info"></div>
                     </div>
                 </div>
-
-
-
-
             </div>
         </section>
 
 
-
-
+        <!-- TEMPLATE : TEXT Input -->
         <section id="tpl_text_input" frigg-slot-class="custom_data">
             <div frigg-slot-bg="background" class="container carded">
                 <form class="form">
@@ -240,6 +216,7 @@
             </div>
         </section>
 
+        <!-- TEMPLATE : QRCODE Input -->
         <section id="tpl_qrcode" frigg-slot-class="custom_data">
             <div frigg-slot-bg="background" class="container carded">
                 <form class="form">

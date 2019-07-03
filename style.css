@@ -48,6 +48,27 @@ body {
 
 
 
+/* better text */
+.bt.heading {
+    
+}
+
+.bt.anchor, .bt.anchor:visited {
+    color: black;
+}
+
+.bt.img,
+.bt.media {
+    max-width: 100%;
+}
+
+
+.bt.media.invalid {
+    display: none;
+}
+
+
+
 
 
 /**************/
@@ -765,53 +786,47 @@ body {
 
 
 
-/* menu */
-
-.tpl_menu {
-    background: rgb(53, 32, 97);
-}
-
-.tpl_menu .items {
-    margin-top: 3em;
-    padding-left: 1em;
-    padding-right: 1em;
-
-    list-style: none;
-
-    color: white;
-    font-size: 2em;
-    line-height: 1.5em;
-
-    text-transform: uppercase;
-}
-
 
 /* info */
 
-.tpl_page_informations .container {
+.tpl_information .body {
     overflow-y: scroll;
-}
 
-.tpl_page_informations .body {
-    padding: 2em;
-}
+    max-width: 600px;
+    margin: auto;
+    position: relative;
 
-.tpl_page_informations .title {
-    padding-top: 1em;
-    padding-bottom: 2em;
+    height: 100%;
 }
 
 
-.tpl_page_informations .images img {
-    display: block;
-    text-align: center;
-    width: 100%;
-    max-width: 200px;
-    margin: 1em auto;
+.tpl_information .infos {
+    padding: 4rem 0rem;
+}
+
+.tpl_information .infos .info {
+    padding: 1em 0;
+}
+
+.tpl_information.has_images .infos .info {
+    background-repeat: no-repeat;
+    background-position: left 0.5em;
+    background-size: 2em;
+    padding-left: 3em;
 }
 
 
 
+
+
+
+@media (max-width: 600px) {
+    .tpl_information .infos .info {
+        padding-left: 1em;
+        padding-right: 1em;
+    }
+
+}
 
 
 
