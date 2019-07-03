@@ -642,6 +642,8 @@ body {
 
     padding: 0.5em;
     display: inline-block;
+
+    width: calc(100% - 1em);
 }
 
 .tpl_text_input .formItem.button button {
