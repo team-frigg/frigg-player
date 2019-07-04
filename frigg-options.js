@@ -279,19 +279,17 @@ var friggConfig = {
                 map.addLayer(layer);
             }.bind(this));
 
-            var createMarker = function(map, frigg, connection, media){
+            var createMarker = function(map, frigg, connection, media, label){
                 
                 var destinationSceneId = connection.destination_scene_id;
-                var destionationScene = frigg.project.scenes[destinationSceneId];
+                var destinationScene = frigg.project.scenes[destinationSceneId];
 
-                //console.log(destionationScene.template_id);
-                var toSceneTemplate = "to-" + frigg._cleanTemplateName(frigg.project.templates[destionationScene.template_id].label);
+                //console.log(destinationScene.template_id);
+                var toSceneTemplate = "to-" + frigg._cleanTemplateName(frigg.project.templates[destinationScene.template_id].label);
 
-                var latitude = destionationScene.geo_latitude;
-                var longitude = destionationScene.geo_longitude;
-                var level = destionationScene.geo_level;
-
-                var label = destionationScene.label;
+                var latitude = destinationScene.geo_latitude;
+                var longitude = destinationScene.geo_longitude;
+                var level = destinationScene.geo_level;
 
                 //by level : 
                 //https://www.mapbox.com/mapbox.js/api/v3.1.1/l-layergroup/
@@ -301,15 +299,25 @@ var friggConfig = {
                     return;
                 }
 
-                var popupElt = document.createElement('div');
-                popupElt.setAttribute("frigg-zoom-min", level);
-                popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+level;
-                popupElt.innerHTML = "<h3>" + label + '</h3>';
+                var listener = function(){
+                    frigg.gotoScene(destinationSceneId);
+                }
 
-                var popupMarker = new mapboxgl.Marker({'element': popupElt, anchor: 'bottom'})
-                  .setOffset([0, 0])
-                  .setLngLat([longitude, latitude])
-                  .addTo(map);
+                if (label && label.content && label.content != "-"){
+                    var popupElt = document.createElement('div');
+                    popupElt.setAttribute("frigg-zoom-min", level);
+                    popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+level;
+                    popupElt.innerHTML = "<h3>" + label.content + '</h3>';
+
+                    var popupMarker = new mapboxgl.Marker({'element': popupElt, anchor: 'bottom'})
+                    .setOffset([0, 0])
+                    .setLngLat([longitude, latitude])
+                    .addTo(map);
+
+                    popupElt.addEventListener('click', listener);
+                }
+
+                
 
                 var markerElt = document.createElement('div');
                 markerElt.setAttribute("frigg-zoom-min", level);
@@ -327,13 +335,8 @@ var friggConfig = {
                   .setLngLat([longitude, latitude])
                   .addTo(map);
 
-                var listener = function(){
-                    frigg.gotoScene(destinationSceneId);
-                }
-
                 markerElt.addEventListener('click', listener);
-                popupElt.addEventListener('click', listener);
-            
+
             }
 
             var handleVisibility = function(map, frigg){
@@ -359,8 +362,8 @@ var friggConfig = {
             //poi & popup
             for(var connectionIndex in sceneData['poi_list']){
                 var connection = sceneData['poi_list'][connectionIndex];
-
                 var media = null;
+                var label = null;
 
                 if (sceneData['poi_icon'] ){
                     var match = sceneData['poi_icon'][connectionIndex];
@@ -369,7 +372,14 @@ var friggConfig = {
                     media = match ? match : last;
                 }
 
-                createMarker(map, frigg, connection, media);
+                if (sceneData['poi_label'] ){
+                    var match = sceneData['poi_label'][connectionIndex];
+                    var last = sceneData['poi_label'][sceneData['poi_label'].length-1];
+                    
+                    label = match ? match : last;
+                }
+
+                createMarker(map, frigg, connection, media, label);
                 
             }
 
