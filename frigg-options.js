@@ -220,35 +220,65 @@ var friggConfig = {
 
             var map = new mapboxgl.Map(mapOption);
 
-            var geoTracker = new mapboxgl.GeolocateControl({
-                positionOptions: {
-                    enableHighAccuracy: true
-                },
-                trackUserLocation: true
-            })
+            var trackUserIfNeeded = function(map, frigg){
+                var trackUserLocation = frigg.hasCustomData('trackUserLocation');
 
-            map.addControl(geoTracker);
-            window.setTimeout(function(){
-                if (! geoTracker._geolocateButton) return;
-                geoTracker._geolocateButton.click();
-            }, 2000);
+                if (! trackUserLocation){
+                    return
+                }
+
+                var geoTracker = new mapboxgl.GeolocateControl({
+                    positionOptions: {
+                        enableHighAccuracy: true
+                    },
+                    trackUserLocation: true
+                })
+
+                map.addControl(geoTracker);
+
+                window.setTimeout(function(){
+                    if (! geoTracker._geolocateButton) return;
+                    geoTracker._geolocateButton.click();
+                }, 2000);
             
-
-            //var mapElements = [];
-            var thresholdLevel = 16;
-            function getLevelName(level){
-                if (!level) {
-                    return "primary";
-                }
-
-                if (level >= thresholdLevel) {
-                    return "primary";
-                }
-
-                return "secondary";
             }
 
-            
+
+            map.on('load', function () {
+
+                trackUserIfNeeded(map, frigg);
+
+
+                if (! sceneData.trace_geojson) {
+                    return
+                }
+
+                var geojson = JSON.parse(sceneData.trace_geojson[0].content);
+                var traceStyle = sceneData.trace_style ? JSON.parse(sceneData.trace_style[0].content) : null;
+
+                map.addSource('trace', { type: 'geojson', data: geojson });
+
+                var layer = {
+                    "id": "trace",
+                    "type": "line",
+                    "source": "trace",
+                    /*"layout": {
+                        "line-join": "round",
+                        "line-cap": "round"
+                        },*/
+                    "paint": {
+                        "line-color": "#000",
+                        "line-width": 3
+                    }
+                };
+
+                if (traceStyle) {
+                    Object.assign(layer, traceStyle);
+                }
+
+                map.addLayer(layer);
+            }.bind(this));
+
             var createMarker = function(map, frigg, connection, media){
                 
                 var destinationSceneId = connection.destination_scene_id;
@@ -260,7 +290,6 @@ var friggConfig = {
                 var latitude = destionationScene.geo_latitude;
                 var longitude = destionationScene.geo_longitude;
                 var level = destionationScene.geo_level;
-                var levelName = getLevelName(destionationScene.geo_level);
 
                 var label = destionationScene.label;
 

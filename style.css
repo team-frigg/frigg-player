@@ -821,7 +821,7 @@ body {
 
 .tpl_information.has_images .infos .info {
     background-repeat: no-repeat;
-    background-position: left 0.5em;
+    background-position: 0.4em 0.8em;
     background-size: 2em;
     padding-left: 3em;
 }
