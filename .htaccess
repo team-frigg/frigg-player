@@ -1,0 +1,2 @@
+RewriteEngine On
+RewriteRule ^([0-9]*)-(.*)$ /share.php?project_id=$1 [L]

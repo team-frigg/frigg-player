@@ -4,17 +4,11 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width">
 
-    <title>FRIGG Player</title>
+   
 
     <link rel="icon" type="image/png" href="medias/favicon.png" />
 
-    <meta property="og:url"           content="https://player.systeme-frigg.org" />
-    <meta property="og:type"          content="website" />
-    <meta property="og:title"         content="FRIGG Player" />
-    <meta property="og:description"   content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
-    <meta property="og:image"         content="https://player.systeme-frigg.org/medias/partage.jpg" />
-
-    <meta name="description" content="FRIGG est un logiciel en ligne pour créer facilement et gratuitement des expériences géolocalisées et ludiques." />
+    <!-- FRIGG DYNAMIC META -->
 
     <!-- link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css" -->
     <link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-base.css">
@@ -27,6 +21,13 @@
 
     <script src="https://player.vimeo.com/api/player.js"></script>
     <script src="diaporama/Diaporama.js"></script>
+
+    <script>
+        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+        })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+    </script>
 
 </head>
 <body>
@@ -240,8 +241,8 @@
     </div>
 
 
-<!--script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script-->
-<script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script>
+<script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script>
+<!--script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script-->
 
 <script type="text/javascript" src="diaporama-options.js" ></script>
 <script type="text/javascript" src="frigg-options.js" ></script>
@@ -267,8 +268,17 @@
         return params;
     }
 
+    function readMetaProperty() {
+        var node = document.querySelector("meta[property='frigg:project']");
+        return node ? node.getAttribute("content") : null;
+    }
+
+    function prompt() {
+        return prompt("Project ID ?");
+    }
+
     var params = readHashParams();
-    var projectId = params["project"] ? params["project"] : prompt("Identifiant du projet");
+    var projectId = params["project"] ? params["project"] : readMetaProperty('frigg:project');
 
     //if you deploy this for your specific project, you should hardcode your project id, instead of reading it from the URL.
     //var projectId = 1234;

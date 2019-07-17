@@ -4,12 +4,21 @@ var friggConfig = {
     //"projectUrlPrefix": "http://frigg.local/api/project/",
     //"mediaFilePrefix": "http://frigg.local/storage/",
 
-    /*
+    
     //if you have Google Analytics you can listen for interresting events ...
-    'onProjectLoaded' : function(project){
-        console.log("project : " + project.label);
+    'onProjectLoaded' : function(project) {
+
+        var node = document.querySelector("meta[property='frigg:google_analytics_account']");
+        var account = node ? node.getAttribute("content") : null;
+        
+        if (! account) {
+            return
+        }
+
+        ga('create', account, 'auto');
         ga('send', 'event', 'Project', 'load', project.label);
     },
+
 
     'onSceneLoaded' : function(scene, project){
         ga('set', 'page', window.location.hash);
@@ -24,7 +33,7 @@ var friggConfig = {
 
     'onVariableChanged' : function(project, scene, variableName, variableValue){
         ga('send', 'event', 'Scene', 'variable_changed', project.label + "/" + scene.label + "/" + variableName , scene.id);
-    },*/
+    },
 
 
     "onTemplateLoaded" : {
