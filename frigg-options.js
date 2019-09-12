@@ -231,8 +231,9 @@ var friggConfig = {
 
             var trackUserIfNeeded = function(map, frigg){
                 var trackUserLocation = frigg.hasCustomData('trackUserLocation');
+                var autoTrackUserLocation = frigg.hasCustomData('autoTrackUserLocation');
 
-                if (! trackUserLocation){
+                if (! trackUserLocation && ! autoTrackUserLocation){
                     return
                 }
 
@@ -240,13 +241,13 @@ var friggConfig = {
                     positionOptions: {
                         enableHighAccuracy: true
                     },
-                    trackUserLocation: true
+                    trackUserLocation: autoTrackUserLocation
                 })
 
                 map.addControl(geoTracker);
 
                 window.setTimeout(function(){
-                    if (! geoTracker._geolocateButton) return;
+                    if (! geoTracker._geolocateButton || ! autoTrackUserLocation) return;
                     geoTracker._geolocateButton.click();
                 }, 2000);
             

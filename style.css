@@ -634,6 +634,8 @@ body {
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
+
+    overflow-y: scroll;
 }
 
 .tpl_text_input .form {
@@ -693,6 +695,8 @@ body {
     flex-direction: column;
     /* align-items: center; */
     justify-content: center;
+
+    overflow-y: scroll;
 }
 
 .tpl_qrcode .form {
@@ -825,7 +829,6 @@ body {
     background-size: 2em;
     padding-left: 3em;
 }
-
 
 
 

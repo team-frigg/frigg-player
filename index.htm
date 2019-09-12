@@ -10,7 +10,7 @@
 
     <!-- FRIGG DYNAMIC META -->
 
-    <!-- link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css" -->
+    <!--link rel="stylesheet" type="text/css" href="http://frigg-sdk-js.local/src/frigg-base.css"-->
     <link rel="stylesheet" type="text/css" href="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-base.css">
 
     <link rel="stylesheet" type="text/css" href="style.css">
@@ -156,7 +156,9 @@
 
             <div class="container" frigg-slot-bg="background">
                 <div class='mapContainer'></div> <!-- the map is actually loaded by the listener -->
-                <p class="menuButton"><img draggable="false" frigg-slot-srcAlt="menu_icon" frigg-slot-link="menu_link" /></p>
+                
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
 
                 <footer>
                     <div class="body items bottom-menu">
@@ -193,13 +195,14 @@
             <div class="container" frigg-slot-bg="background" >
                 
                 <div class="body">
-                    <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
-                    <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
-
                     <div class="infos">
                         <div frigg-slot-html="texts" frigg-slot-bg="images" frigg-slot-link="links" class="info"></div>
                     </div>
                 </div>
+
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
+
             </div>
         </section>
 
@@ -215,6 +218,10 @@
                     <p class="formItem button"><button class="standardButton" frigg-slot-html="button_label"></button></p>
                 </form>
             </div>
+
+            <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+            <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
+
         </section>
 
         <!-- TEMPLATE : QRCODE Input -->
@@ -234,7 +241,11 @@
                     </p>
                 </form>
 
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
+
                 <p class="bypassButton" frigg-slot-html="bypass_label" frigg-slot-link="bypass_link"></p>
+
             </div>
         </section>
 
