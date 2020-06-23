@@ -198,6 +198,7 @@ var friggConfig = {
         },
 
         'map': function (element, sceneData, frigg) {
+
             if (! sceneData.map_token[0].content) {
                 console.error("You must set a map_token in your map template.")
             }
@@ -313,10 +314,16 @@ var friggConfig = {
                     frigg.gotoScene(destinationSceneId);
                 }
 
+
+                var className = frigg.getClassForLinkSlot(connection);
+                if (className != 'link') {
+                    className = "link " + className;
+                }
+
                 if (label && label.content && label.content != "-"){
                     var popupElt = document.createElement('div');
                     popupElt.setAttribute("frigg-zoom-min", level);
-                    popupElt.className = toSceneTemplate + ' map-popup map-item map-level-'+level;
+                    popupElt.className = toSceneTemplate + ' ' + className + ' map-popup map-item map-level-'+level;
                     popupElt.innerHTML = "<h3>" + label.content + '</h3>';
 
                     var popupMarker = new mapboxgl.Marker({'element': popupElt, anchor: 'bottom'})
@@ -331,7 +338,7 @@ var friggConfig = {
 
                 var markerElt = document.createElement('div');
                 markerElt.setAttribute("frigg-zoom-min", level);
-                markerElt.className = toSceneTemplate + ' map-marker map-item map-level-'+ level;
+                markerElt.className = toSceneTemplate + ' ' + className + ' map-marker map-item map-level-'+ level;
                 
                 if (media) {
                     markerElt.style.backgroundImage = 'url(' + frigg.params.mediaFilePrefix + media.content + ')';
@@ -352,7 +359,7 @@ var friggConfig = {
             var handleVisibility = function(map, frigg){
                 var maxZoom = 25;
                 var zoom = Math.round(map.getZoom());
-                console.log("Map zoom : " + zoom);
+                //console.log("Map zoom !!: " + zoom);
 
                 var selectorPattern = "div[frigg-zoom-min='%level%']";
                 var selectorList = [];
@@ -363,7 +370,7 @@ var friggConfig = {
                 }
 
                 var selector = selectorList.join(',');
-
+                //console.log(selector);
                 var container = map.getContainer();
                 frigg.applyClassBySelector(container, ".map-item", "hidden", "remove");
                 frigg.applyClassBySelector(container, selector, "hidden", "add");
