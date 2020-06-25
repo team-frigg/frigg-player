@@ -203,7 +203,7 @@ var friggConfig = {
                 console.error("You must set a map_token in your map template.")
             }
 
-            var theMapId = "map_" + Date.now();
+            var theMapId = "map_" + frigg.currentSceneId;
             element.querySelector('.mapContainer').setAttribute('id', theMapId);
 
             mapboxgl.accessToken = sceneData.map_token[0].content;
