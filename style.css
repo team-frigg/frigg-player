@@ -325,6 +325,10 @@ body {
     background-repeat: no-repeat;
 }
 
+
+
+
+
 .tpl_content.fullscreen-diaporama header{
     height: 100%;
     width: 100%;
@@ -473,6 +477,31 @@ body {
     overflow-y: scroll;
 }
 
+
+
+/*without diaporama */
+
+
+.tpl_content.has_not_images header {
+    background-image: none;
+    height: 3.5em;
+}
+
+.tpl_content.has_not_images .diaporama {
+    display: none;
+}
+
+.tpl_content.has_not_images .mainContent {
+    top: 3.5em;
+    height: calc(100% - 4rem);
+}
+
+.tpl_content.has_not_images.has_not_items_image .mainContent {
+    height: calc(100% - 0rem);
+}
+
+
+
 @media (min-width: 900px) , (orientation: landscape) {
         
     .tpl_content header {
@@ -514,8 +543,27 @@ body {
     }
 
 
+    /* no diapo */
+
+
+    .tpl_content.has_not_images header {
+        width: 100%;
+    }
+
+
+    .tpl_content.has_not_images footer,
+    .tpl_content.has_not_images .mainContent {
+        left:25%;
+        right:25%;
+    }
+
 
 }
+
+
+
+
+
 
 
 /* map template */
