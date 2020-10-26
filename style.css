@@ -17,6 +17,11 @@ body {
     overscroll-behavior-y: none;
 }
 
+.pleaseWaitLogo {
+    text-align: center;
+    margin-top: 5rem;
+}
+
 .pleaseWait {
     text-align: center;
     font-weight: bold;
