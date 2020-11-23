@@ -54,8 +54,13 @@
 
                 <div class="audio_block">
                     <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                    <img draggable="false" frigg-slot-srcAlt="rewind_icon" frigg-media-control class="audio_control rewind"/>
                     <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
                     <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
+                    <img draggable="false" frigg-slot-srcAlt="forward_icon" frigg-media-control class="audio_control forward"/>
+
+                    <div class="audioCursor width"></div>
+                    <div class="audioCursor left"></div>
                 </div>
 
 
@@ -80,8 +85,13 @@
                 <div class="card">
                     <div class="audio_block">
                         <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                        <img draggable="false" frigg-slot-srcAlt="rewind_icon" frigg-media-control class="audio_control rewind"/>
                         <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
                         <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
+                        <img draggable="false" frigg-slot-srcAlt="forward_icon" frigg-media-control class="audio_control forward"/>
+
+                        <div class="audioCursor width"></div>
+                        <div class="audioCursor left"></div>
                     </div>
 
                     <div class="content">
@@ -131,8 +141,13 @@
                 <div class="body">
                     <div class="audio_block">
                         <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                        <img draggable="false" frigg-slot-srcAlt="rewind_icon" frigg-media-control class="audio_control rewind"/>
                         <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
                         <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
+                        <img draggable="false" frigg-slot-srcAlt="forward_icon" frigg-media-control class="audio_control forward"/>
+
+                        <div class="audioCursor width"></div>
+                        <div class="audioCursor left"></div>
                     </div>
 
                     <div frigg-slot-html="content"></div>
@@ -262,6 +277,7 @@
     </div>
 
 
+<!--script type="text/javascript" src="sdk/frigg-sdk.js"></script-->
 <!--script type="text/javascript" src="http://frigg-sdk-js.local/src/frigg-sdk.js"></script-->
 <script type="text/javascript" src="https://static.systeme-frigg.org/frigg-sdk-js-latest/src/frigg-sdk.js"></script>
 

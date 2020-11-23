@@ -35,6 +35,20 @@ var friggConfig = {
         ga('send', 'event', 'Scene', 'variable_changed', project.label + "/" + scene.label + "/" + variableName , scene.id);
     },
 
+    'onMediaPlayedUpdate' : function(scene, project, updateData, element) {
+        var cursorWidth = element.querySelector('.audioCursor.width');
+        var cursorLeft = element.querySelector('.audioCursor.left');
+
+        if (cursorWidth) {
+            cursorWidth.style.width = updateData.elapsedPercent + '%';
+        }
+        
+        if (cursorLeft) {
+            cursorLeft.style.left = updateData.elapsedPercent + '%';
+        }
+
+    },
+
 
     "onTemplateLoaded" : {
 
