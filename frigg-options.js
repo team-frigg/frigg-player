@@ -254,25 +254,21 @@ var friggConfig = {
             
             }
 
+            var createTrace = function(identifier, data, style, map, frigg) {
 
-            map.on('load', function () {
-
-                trackUserIfNeeded(map, frigg);
-
-
-                if (! sceneData.trace_geojson) {
-                    return
+                if (! data) {
+                    return;
                 }
 
-                var geojson = JSON.parse(sceneData.trace_geojson[0].content);
-                var traceStyle = sceneData.trace_style ? JSON.parse(sceneData.trace_style[0].content) : null;
+                var geojson = JSON.parse(data.content);
+                var traceStyle = style ? JSON.parse(style.content) : null;
 
-                map.addSource('trace', { type: 'geojson', data: geojson });
+                map.addSource(identifier, { type: 'geojson', data: geojson });
 
                 var layer = {
-                    "id": "trace",
+                    "id": "trace_" + identifier,
                     "type": "line",
-                    "source": "trace",
+                    "source": identifier,
                     /*"layout": {
                         "line-join": "round",
                         "line-cap": "round"
@@ -287,8 +283,11 @@ var friggConfig = {
                     Object.assign(layer, traceStyle);
                 }
 
+                console.log("TRACE ", identifier);
                 map.addLayer(layer);
-            }.bind(this));
+
+
+            }
 
             var createMarker = function(map, frigg, connection, media, label){
                 
@@ -376,29 +375,55 @@ var friggConfig = {
                 frigg.applyClassBySelector(container, selector, "hidden", "add");
             }
 
-            //poi & popup
-            for(var connectionIndex in sceneData['poi_list']){
-                var connection = sceneData['poi_list'][connectionIndex];
-                var media = null;
-                var label = null;
 
-                if (sceneData['poi_icon'] ){
-                    var match = sceneData['poi_icon'][connectionIndex];
-                    var last = sceneData['poi_icon'][sceneData['poi_icon'].length-1];
+            map.on('load', function () {
+
+                trackUserIfNeeded(map, frigg);
+                createTrace("main_trace", sceneData.trace_geojson ? sceneData.trace_geojson[0]: null, sceneData.trace_style ? sceneData.trace_style[0] : null, map, frigg);
+
+                //poi & popup
+                for(var connectionIndex in sceneData['poi_list']){
+                    var connection = sceneData['poi_list'][connectionIndex];
+                    var media = null;
+                    var label = null;
+
+                    if (sceneData['poi_icon'] ){
+                        var match = sceneData['poi_icon'][connectionIndex];
+                        var last = sceneData['poi_icon'][sceneData['poi_icon'].length-1];
+                        
+                        media = match ? match : last;
+                    }
+
+                    if (sceneData['poi_label'] ){
+                        var match = sceneData['poi_label'][connectionIndex];
+                        var last = sceneData['poi_label'][sceneData['poi_label'].length-1];
+                        
+                        label = match ? match : last;
+                    }
+
+                    if (sceneData['poi_trace'] ){
+                        var match = sceneData['poi_trace'][connectionIndex];
+                        var last = sceneData['poi_trace'][sceneData['poi_trace'].length-1];
+                        
+                        trace = match ? match : last;
+                    }
+
+                    createMarker(map, frigg, connection, media, label);
+
                     
-                    media = match ? match : last;
+                    if (trace) {
+                        var className = frigg.getClassForLinkSlot(connection);
+                        if (className != 'closed-link') {
+                            var traceStyle = sceneData.trace_style ? sceneData.trace_style[0] : null;
+                            createTrace("poi_trace_" + connectionIndex, trace, traceStyle, map, frigg);
+                        }
+                    }
+
                 }
 
-                if (sceneData['poi_label'] ){
-                    var match = sceneData['poi_label'][connectionIndex];
-                    var last = sceneData['poi_label'][sceneData['poi_label'].length-1];
-                    
-                    label = match ? match : last;
-                }
+            }.bind(this));
 
-                createMarker(map, frigg, connection, media, label);
-                
-            }
+            
 
             map.on("zoomend", function(data){
                 handleVisibility(map, frigg);
