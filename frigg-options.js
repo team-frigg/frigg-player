@@ -39,12 +39,16 @@ var friggConfig = {
         var cursorWidth = element.querySelector('.audioCursor.width');
         var cursorLeft = element.querySelector('.audioCursor.left');
 
+        var content = "<span class='time elapsed'>"+updateData.elapsedSeconds+"s</span> <span class='time total'>"+updateData.durationSeconds+"s</span>";
+
         if (cursorWidth) {
             cursorWidth.style.width = updateData.elapsedPercent + '%';
+            cursorWidth.innerHTML = content;
         }
         
         if (cursorLeft) {
             cursorLeft.style.left = updateData.elapsedPercent + '%';
+            cursorLeft.innerHTML = content;
         }
 
     },

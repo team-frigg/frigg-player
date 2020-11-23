@@ -200,6 +200,10 @@ body {
     display: none;
 }
 
+.audioCursor .time {
+    display: none;
+}
+
 .audioCursor.width {
     background-color: black;
     height: 1px;
