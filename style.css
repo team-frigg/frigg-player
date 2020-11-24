@@ -361,6 +361,7 @@ body {
 }
 
 .tpl_content header {
+    z-index: 10;
     position: absolute;
     top: 0;
     left: 0;
@@ -442,6 +443,7 @@ body {
     height: 3em;
 
     left: 0;
+    z-index: 1;
 }
 
 .tpl_content.fullscreen-diaporama header .navButtons .diaporama-next,
@@ -541,9 +543,10 @@ body {
     display: none;
 }
 
+
 .tpl_content.has_not_images .mainContent {
-    top: 3.5em;
-    height: calc(100% - 4rem);
+        top: 0em;
+        height: calc(100% - 0rem);
 }
 
 .tpl_content.has_not_images.has_not_items_image .mainContent {
@@ -593,12 +596,22 @@ body {
     }
 
 
+
     /* no diapo */
+    .tpl_content.has_not_images .mainContent {
+        top: 3.5em;
+        height: calc(100% - 4rem);
+    }
+
 
 
     .tpl_content.has_not_images header {
         width: 100%;
+
+
     }
+
+
 
 
     .tpl_content.has_not_images footer,
