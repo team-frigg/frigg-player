@@ -38,6 +38,7 @@ var friggConfig = {
     'onMediaPlayedUpdate' : function(scene, project, updateData, element) {
         var cursorWidth = element.querySelector('.audioCursor.width');
         var cursorLeft = element.querySelector('.audioCursor.left');
+        var cursorStable = element.querySelector('.audioCursor.stable');
 
         var content = "<span class='time elapsed'>"+updateData.elapsedSeconds+"s</span> <span class='time total'>"+updateData.durationSeconds+"s</span>";
 
@@ -49,6 +50,10 @@ var friggConfig = {
         if (cursorLeft) {
             cursorLeft.style.left = updateData.elapsedPercent + '%';
             cursorLeft.innerHTML = content;
+        }
+
+        if (cursorStable) {
+            cursorStable.innerHTML = content;
         }
 
     },

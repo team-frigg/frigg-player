@@ -55,7 +55,7 @@ body {
 
 /* better text */
 .bt.heading {
-    
+    margin-bottom: 1em;
 }
 
 .bt.anchor, .bt.anchor:visited {
@@ -1046,6 +1046,28 @@ body {
     justify-content: flex-end;
 }
 
+
+.bigAudio .audio_block .audioCursor.stable {
+    display: block;
+    position: relative;
+}
+
+.bigAudio .audio_block .audioCursor.stable .time {
+    position: absolute;
+    display: block;
+    
+    top: 0;
+    font-size: .7em;
+    padding-top: 0.5em;
+}
+
+.bigAudio .audio_block .audioCursor.stable .time.elapsed {
+    left: 0;
+}
+
+.bigAudio .audio_block .audioCursor.stable .time.total {
+    right: 0
+}
 
 
 
