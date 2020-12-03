@@ -283,8 +283,13 @@ var friggConfig = {
                     return;
                 }
 
-                var geojson = JSON.parse(data.content);
-                var traceStyle = style ? JSON.parse(style.content) : null;
+                try{
+                    var geojson = JSON.parse(data.content);
+                    var traceStyle = style ? JSON.parse(style.content) : null;
+                } catch (e) {
+                    console.warning("Error while decoding JSON trace or style", e);
+                    return;
+                }
 
                 map.addSource(identifier, { type: 'geojson', data: geojson });
 
