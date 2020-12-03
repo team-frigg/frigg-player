@@ -287,7 +287,7 @@ var friggConfig = {
                     var geojson = JSON.parse(data.content);
                     var traceStyle = style ? JSON.parse(style.content) : null;
                 } catch (e) {
-                    console.warning("Error while decoding JSON trace or style", e);
+                    console.error("Error while decoding JSON trace or style", e);
                     return;
                 }
 
