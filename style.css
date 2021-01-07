@@ -20,7 +20,13 @@ body {
 .pleaseWaitLogo {
     text-align: center;
     margin-top: 5rem;
+
+    
 }
+
+.pleaseWaitLogo img {
+    max-width: 80%;
+    }
 
 .pleaseWait {
     text-align: center;
@@ -32,6 +38,8 @@ body {
     background-size: 1em;
     background-position: 50% 100%;
     background-repeat: no-repeat;
+
+    color: #767676;
 }
 
 /* slot based */
