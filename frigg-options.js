@@ -414,6 +414,7 @@ var friggConfig = {
                     var connection = sceneData['poi_list'][connectionIndex];
                     var media = null;
                     var label = null;
+                    var trace = null;
 
                     if (sceneData['poi_icon'] ){
                         var match = sceneData['poi_icon'][connectionIndex];
