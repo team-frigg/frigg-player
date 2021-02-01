@@ -73,14 +73,14 @@ var friggConfig = {
 
             player.on('play', function() {
                 element.classList.add('media_playing');
-                element.classList.remove('media_finished');
+                //element.classList.remove('media_finished');
                 element.classList.remove('media_paused');
             });
 
             player.on('pause', function() {
                 element.classList.add('media_paused');
                 element.classList.remove('media_playing');
-                element.classList.remove('media_finished');
+                //element.classList.remove('media_finished');
             });
 
             player.on('ended', function() {
