@@ -69,37 +69,84 @@ var friggConfig = {
 
         'video': function(element, sceneData, frigg){
             var frame = element.querySelector('.videoFrame');
-            var player = new Vimeo.Player(frame);
+            var rawPlayer = element.querySelector('.videoRaw');
 
-            player.on('play', function() {
-                element.classList.add('media_playing');
-                //element.classList.remove('media_finished');
-                element.classList.remove('media_paused');
-            });
+            if (frame.getAttribute("src")) {
+                var player = new Vimeo.Player(frame);
+                player.on('click', function() {
+                    player.play();
+                });
 
-            player.on('pause', function() {
-                element.classList.add('media_paused');
-                element.classList.remove('media_playing');
-                //element.classList.remove('media_finished');
-            });
+                player.on('play', function() {
+                    element.classList.add('media_playing');
+                    //element.classList.remove('media_finished');
+                    element.classList.remove('media_paused');
+                });
 
-            player.on('ended', function() {
-                element.classList.add('media_finished');
-                element.classList.remove('media_playing');
-                element.classList.remove('media_finishing');
-                element.classList.remove('media_paused');
-            });
+                player.on('pause', function() {
+                    element.classList.add('media_paused');
+                    element.classList.remove('media_playing');
+                    //element.classList.remove('media_finished');
+                });
 
-            player.on('timeupdate', function(e) {
-                var p = e.percent * 100;
+                player.on('ended', function() {
+                    element.classList.add('media_finished');
+                    element.classList.remove('media_playing');
+                    element.classList.remove('media_finishing');
+                    element.classList.remove('media_paused');
+                });
 
-                if (p > 90 || e.duration - e.seconds < 5) {
-                    element.classList.add('media_finishing');
-                }
-            });
+                player.on('timeupdate', function(e) {
+                    var p = e.percent * 100;
+
+                    if (p > 90 || e.duration - e.seconds < 5) {
+                        element.classList.add('media_finishing');
+                    }
+                });
 
 
-            frigg.pausableElements.push(player);
+                frigg.pausableElements.push(player);
+            }
+
+            if (rawPlayer.getAttribute("src")) {
+                rawPlayer.addEventListener('click', function() {
+                    rawPlayer.play();
+                });
+
+                rawPlayer.addEventListener('play', function() {
+                    element.classList.add('media_playing');
+                    //element.classList.remove('media_finished');
+                    element.classList.remove('media_paused');
+                });
+
+                rawPlayer.addEventListener('pause', function() {
+                    element.classList.add('media_paused');
+                    element.classList.remove('media_playing');
+                    //element.classList.remove('media_finished');
+                });
+
+                rawPlayer.addEventListener('ended', function() {
+                    element.classList.add('media_finished');
+                    element.classList.remove('media_playing');
+                    element.classList.remove('media_finishing');
+                    element.classList.remove('media_paused');
+                });
+
+                rawPlayer.addEventListener('timeupdate', function(e) {
+
+                    var currentTime = e.target.currentTime
+                    var duration = e.target.duration
+
+                    var p = Math.round((currentTime/duration) * 100);
+
+                    if (p > 90 || duration - currentTime < 5) {
+                        element.classList.add('media_finishing');
+                    }
+                });
+
+
+                frigg.pausableElements.push(rawPlayer);
+            }
         },
 
         'text_input': function(element, sceneData, frigg) {

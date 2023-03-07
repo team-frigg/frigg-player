@@ -117,6 +117,48 @@
 
         </section>
 
+        <!-- TEMPLATE : Choices bis -->
+        <section id="tpl_choices_bis" class="scene" frigg-slot-class="custom_data">
+            <div frigg-slot-bg="background" class="container carded">
+                
+                <div class="card" frigg-slot-bg="card_background">
+
+                    <div class="content">
+
+                        <div class="contentHead" frigg-slot-bg="card_head_background"><img draggable="false" frigg-slot-srcAlt="card_head"/></div>
+
+                        <div class="contentWrapper" frigg-slot-bg="card_content_background">
+                            
+                            <div frigg-slot-html="content" class="contentText main_text"></div>
+
+                            <div class="audio_block">
+                                <audio frigg-slot-srcAlt="audio" class="audioPlayer"> </audio>
+                                <img draggable="false" frigg-slot-srcAlt="rewind_icon" frigg-media-control class="audio_control rewind"/>
+                                <img draggable="false" frigg-slot-srcAlt="play_icon" frigg-media-control class="audio_control play"/>
+                                <img draggable="false" frigg-slot-srcAlt="pause_icon" frigg-media-control class="audio_control pause"/>
+                                <img draggable="false" frigg-slot-srcAlt="forward_icon" frigg-media-control class="audio_control forward"/>
+
+                                <div class="audioCursor width"></div>
+                                <div class="audioCursor left"></div>
+                                <div class="audioCursor stable"></div>
+                            </div>
+
+                            <ul class="items">
+                                <li frigg-slot-bg="items_image" frigg-slot-link="items_link" frigg-slot-html="items_text" class="item"></li>
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
+                <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
+
+            </div>
+
+        </section>
 
 
         <!-- TEMPLATE : Content-->
@@ -210,6 +252,7 @@
         <section id="tpl_video" class="scene" frigg-slot-class="custom_data">
             <div class="container">
                 <iframe frigg-slot-srcAlt="video" width="100%" height="100%" class="videoFrame" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen allow="autoplay; encrypted-media"></iframe>
+                <video frigg-slot-srcAlt="video_raw" width="100%" height="100%" class="videoRaw" autoplay></video>
 
                 <p class="nav mainNav"><img draggable="false" frigg-slot-srcAlt="main_nav_icon" frigg-slot-link="main_nav_link" /></p>
                 <p class="nav secondaryNav"><img draggable="false" frigg-slot-srcAlt="secondary_nav_icon" frigg-slot-link="secondary_nav_link" /></p>
@@ -325,7 +368,7 @@
     var projectId = params["project"] ? params["project"] : readMetaProperty('frigg:project');
 
     //if you deploy this for your specific project, you should hardcode your project id, instead of reading it from the URL.
-    //var projectId = 1234;
+    var projectId = 241;
 
     var frigg = new FRIGG.Client(friggConfig);
     frigg.run(projectId);
