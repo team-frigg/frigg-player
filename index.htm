@@ -372,7 +372,7 @@
     var projectId = params["project"] ? params["project"] : readMetaProperty('frigg:project');
 
     //if you deploy this for your specific project, you should hardcode your project id, instead of reading it from the URL.
-    var projectId = 241;
+    //var projectId = 241;
 
     var frigg = new FRIGG.Client(friggConfig);
     frigg.run(projectId);
